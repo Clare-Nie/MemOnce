@@ -184,10 +184,6 @@ As a plug-and-play reranker on LoCoMo (top-20 of 256 candidates), MemOnce lifts 
 ```text
 ├── assets/                          # Paper figures used by this README
 ├── docs/index.html                  # Project page (GitHub Pages)
-├── model/                           # Released 4B post-training checkpoint
-│   ├── config.json                  #   MemOnceConfig metadata
-│   └── index.json                   #   tensor manifest + source SHA-256
-│                                    #   weights: hf download ClareNie/MemOnce --local-dir model
 ├── pre-training/                    # Train MemOnce from scratch
 │   ├── memonce.py                   #   Self-contained model (torch + fla)
 │   ├── train.py                     #   DDP pre-training entry
@@ -204,6 +200,12 @@ As a plug-and-play reranker on LoCoMo (top-20 of 256 candidates), MemOnce lifts 
 └── requirements/
     ├── pretraining.txt
     └── posttraining.txt
+```
+
+The released checkpoint is distributed through Hugging Face rather than this repository:
+
+```bash
+hf download ClareNie/MemOnce --local-dir model   # config.json + index.json + model.safetensors
 ```
 
 ## Installation
