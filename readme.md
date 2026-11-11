@@ -307,7 +307,3 @@ Byte-identical weights with greedy decoding reproduce the released generations. 
   year    = {2026}
 }
 ```
-
-## License
-
-Code and released checkpoints are provided for research use. A formal license file will be added with the public release.
