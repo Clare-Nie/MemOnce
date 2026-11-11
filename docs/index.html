@@ -26,17 +26,25 @@ img{display:block;max-width:100%}
 .container{max-width:1180px;margin:0 auto;padding:0 24px}
 .container.narrow{max-width:900px}
 
-/* ---------- nav ---------- */
-.navbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-.nav-inner{max-width:1180px;margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;gap:26px}
-.brand{display:flex;align-items:center;gap:9px;font-weight:800;font-size:1.02rem;letter-spacing:-.02em}
-.brand img{width:22px;height:22px;border-radius:6px}
-.brand em{font-style:normal;color:var(--blue)}
-.nav-links{display:flex;gap:24px;margin-left:auto;align-items:center}
-.nav-links a{font-size:.86rem;font-weight:700;color:var(--muted);transition:color .2s}
-.nav-links a:hover{color:var(--blue)}
-.nav-icon{display:inline-flex;align-items:center;gap:6px;font-size:.86rem;font-weight:800;color:var(--ink2)}
-.nav-icon svg{width:16px;height:16px}
+/* ---------- 彻底重构的精美 Navbar ---------- */
+.navbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.85);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(232,236,246,.8)}
+.nav-inner{max-width:1180px;margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between}
+
+/* 品牌区：消灭空格，连贯蓝紫渐变 */
+.brand{display:inline-flex;align-items:center;gap:10px;font-weight:800;font-size:1.15rem;letter-spacing:-.03em;color:var(--ink)}
+.brand img{width:26px;height:26px;border-radius:6px;box-shadow:0 2px 8px rgba(27,66,224,.18)}
+.brand .brand-once{background:linear-gradient(110deg,var(--blue),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent;margin-left:-1px}
+
+/* 导航区：本页菜单与外链胶囊隔离 */
+.nav-links{display:flex;align-items:center;gap:24px}
+.nav-links a.l{font-size:.88rem;font-weight:700;color:var(--muted);transition:color .2s}
+.nav-links a.l:hover{color:var(--blue)}
+
+.nav-actions{display:flex;align-items:center;gap:10px;margin-left:8px;padding-left:20px;border-left:1px solid var(--line)}
+.nav-btn{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:999px;font-size:.82rem;font-weight:700;background:#eef2fa;color:var(--ink2);transition:all .2s ease}
+.nav-btn svg{width:15px;height:15px}
+.nav-btn:hover{background:#fff;box-shadow:0 3px 10px rgba(17,23,49,.08);color:var(--blue);transform:translateY(-1px)}
+.nav-btn.hf:hover{color:#b38600}
 
 /* ---------- hero ---------- */
 .hero{min-height:calc(100vh - 65px);display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;
@@ -53,14 +61,17 @@ img{display:block;max-width:100%}
 .hero-subtitle{max-width:760px;margin:0 auto 22px;color:#666e7d;font-size:clamp(1.05rem,2.3vw,1.6rem);font-weight:800;line-height:1.28}
 .authors{display:flex;justify-content:center;flex-wrap:wrap;gap:6px 20px;margin-bottom:6px;color:var(--blue);font-size:.98rem;font-weight:700}
 .authors sup{margin-left:3px;color:var(--muted);font-size:.6em}
-.affiliation{display:flex;justify-content:center;flex-wrap:wrap;gap:6px 22px;color:var(--muted);font-size:.88rem;font-weight:600;margin-bottom:30px}
+.affiliation{display:flex;justify-content:center;flex-wrap:wrap;gap:6px 22px;color:var(--muted);font-size:.88rem;font-weight:600;margin-bottom:32px}
+
+/* Hero 规范按钮 */
 .hero-buttons{display:flex;justify-content:center;flex-wrap:wrap;gap:12px}
-.hero-buttons .btn{min-width:126px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 20px;border-radius:var(--radius);font-size:.9rem;font-weight:800;line-height:1;border:1px solid var(--line);background:#fff;color:var(--ink2);transition:transform .2s,box-shadow .2s,border-color .2s,background .2s}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:10px 24px;border-radius:10px;font-size:.92rem;font-weight:700;line-height:1;border:1px solid var(--line);background:#fff;color:var(--ink2);transition:all .2s ease}
 .btn:hover{transform:translateY(-2px);box-shadow:var(--shadow-soft)}
-.btn-primary{background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:0 8px 20px rgba(27,66,224,.22)}
-.btn-primary:hover{background:#1736bd;border-color:#1736bd}
-.btn svg{width:16px;height:16px}
+.btn-primary{background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:0 8px 20px rgba(27,66,224,.24)}
+.btn-primary:hover{background:#1535b5;border-color:#1535b5;box-shadow:0 12px 26px rgba(27,66,224,.32)}
+.btn-outline{background:#fff;border-color:#d4ddec;color:var(--ink2)}
+.btn-outline:hover{border-color:#b5c4df}
+.btn svg{width:17px;height:17px}
 
 /* ---------- sections ---------- */
 .section{padding:82px 0}
@@ -73,17 +84,14 @@ img{display:block;max-width:100%}
 /* ---------- reveal ---------- */
 .rv{opacity:1;transform:none;transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1)}
 .rv.in{opacity:1;transform:none}
-.rv:nth-child(2){transition-delay:.06s}
-.rv:nth-child(3){transition-delay:.12s}
-.rv:nth-child(4){transition-delay:.18s}
 
 /* ---------- feature cards ---------- */
 .features-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px}
-.feature-card{min-height:300px;padding:34px 26px 30px;display:flex;flex-direction:column;align-items:center;text-align:center;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-soft);transition:transform .25s,box-shadow .25s}
+.feature-card{min-height:280px;padding:32px 24px 28px;display:flex;flex-direction:column;align-items:center;text-align:center;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-soft);transition:transform .25s,box-shadow .25s}
 .feature-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
 .feature-card .ico{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.7);margin-bottom:18px}
 .feature-card .ico svg{width:22px;height:22px}
-.feature-card h3{margin:0 0 10px;font-size:1.22rem;font-weight:800;line-height:1.2}
+.feature-card h3{margin:0 0 10px;font-size:1.18rem;font-weight:800;line-height:1.2}
 .feature-card p{margin:0;font-size:.9rem;line-height:1.6;color:#3d4664}
 .c-blue{background:#dce8fb}.c-violet{background:#e9e1fb}.c-teal{background:#d9f0ee}.c-sand{background:#fbf1cf}
 
@@ -123,7 +131,6 @@ img{display:block;max-width:100%}
 .method-svg .decode-path{fill:none;stroke:#158b83;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:9 10;opacity:.2}
 .method-svg .pulse{opacity:0}
 .method-visual[data-stage="1"] .write-path,.method-visual[data-stage="2"] .route,.method-visual[data-stage="3"] .decode-path{opacity:1;animation:dash-flow 1.15s linear infinite}
-.method-visual[data-stage="1"] .write-node,.method-visual[data-stage="2"] .route-node,.method-visual[data-stage="3"] .decode-node{stroke-width:3;filter:drop-shadow(0 2px 5px rgba(27,66,224,.2))}
 .method-visual[data-stage="1"] .pulse-write,.method-visual[data-stage="2"] .pulse-route,.method-visual[data-stage="3"] .pulse-decode{opacity:1}
 .method-visual[data-stage="1"] .pulse-write{animation:pulse-write 2.3s ease-in-out infinite}
 .method-visual[data-stage="2"] .pulse-route{animation:pulse-route 2.3s ease-in-out infinite}
@@ -154,7 +161,6 @@ img{display:block;max-width:100%}
 /* ---------- footer ---------- */
 footer{background:var(--paper);border-top:1px solid var(--line);padding:34px 0}
 .foot{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;font-size:.84rem;color:var(--faint)}
-.foot .brand{font-size:.95rem}
 
 /* ---------- lightbox ---------- */
 .lb{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:34px;background:rgba(17,23,49,.86)}
@@ -165,7 +171,6 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:34px 0}
 @media(max-width:1000px){
   .features-grid{grid-template-columns:1fr 1fr}
   .models-grid{grid-template-columns:1fr}
-  .fig-grid{grid-template-columns:1fr}
   .steps{grid-template-columns:1fr}
   .findings{grid-template-columns:1fr}
   .nav-links a.l{display:none}
@@ -173,35 +178,42 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:34px 0}
 @media(max-width:620px){
   .features-grid{grid-template-columns:1fr}
   .hero-content{padding:64px 20px 56px}
-  .hero-buttons{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-  .hero-buttons .btn{min-width:0;padding:10px 6px;font-size:.82rem}
+  .hero-buttons{flex-direction:column;width:100%}
+  .hero-buttons .btn{width:100%}
   .section{padding:56px 0}
   .foot{flex-direction:column;text-align:center}
-  .method-visual{overflow-x:auto;overscroll-behavior-inline:contain}
-  .method-svg{min-width:760px}
-  .method-controls{align-items:flex-start;flex-direction:column}
-  .method-tabs{width:100%}
-  .method-tab{padding:8px 10px;font-size:.76rem}
 }
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}.rv{opacity:1!important;transform:none!important}}
 </style>
 </head>
 <body>
 
+<!-- 精修后的现代高级 Navbar -->
 <nav class="navbar" aria-label="Main navigation">
  <div class="nav-inner">
-  <a href="#top" class="brand"><img src="assets/favicon.svg" alt="">Mem<em>Once</em></a>
+  <a href="#top" class="brand">
+    <img src="assets/favicon.svg" alt="MemOnce">
+    <span>Mem<span class="brand-once">Once</span></span>
+  </a>
   <div class="nav-links">
    <a class="l" href="#features">Features</a>
-   <a class="l" href="#method">Method</a>
+   <a class="l" href="#method">Architecture</a>
    <a class="l" href="#results">Results</a>
    <a class="l" href="#conclusions">Findings</a>
-   <a class="nav-icon" href="https://github.com/Clare-Nie/MemOnce" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.4 7.4 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>GitHub</a>
-   <a class="nav-icon" href="https://huggingface.co/ClareNie/MemOnce" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="4.5" fill="#ffd21e"/><text x="8" y="11.8" text-anchor="middle" font-size="10.5" font-weight="800" font-family="Arial,sans-serif" fill="#20202a">h</text></svg>HuggingFace</a>
+   <div class="nav-actions">
+     <a class="nav-btn" href="https://github.com/Clare-Nie/MemOnce" target="_blank" rel="noopener">
+       <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.4 7.4 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+       <span>GitHub</span>
+     </a>
+     <a class="nav-btn hf" href="https://huggingface.co/ClareNie/MemOnce" target="_blank" rel="noopener">
+       <svg viewBox="0 0 16 16"><rect width="16" height="16" rx="4.5" fill="#ffd21e"/><text x="8" y="11.8" text-anchor="middle" font-size="10.5" font-weight="800" font-family="Arial,sans-serif" fill="#20202a">h</text></svg>
+       <span>HuggingFace</span>
+     </a>
+   </div>
   </div>
  </div>
 </nav>
 
+<!-- 精修后的首屏 Hero -->
 <header class="hero" id="top">
  <div class="hero-content">
   <h1 class="hero-title">Mem<span class="ac">Once</span></h1>
@@ -209,9 +221,18 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:34px 0}
   <div class="authors"><span>Chang Nie<sup>1</sup></span><span>Chaoyou Fu<sup>1</sup></span><span>Songlin Liu<sup>2</sup></span><span>Yiqing Hu<sup>2</sup></span><span>Caifeng Shan<sup>1</sup></span></div>
   <div class="affiliation"><span><sup>1</sup> Nanjing University</span><span><sup>2</sup> University of Science and Technology of China</span></div>
   <div class="hero-buttons">
-   <a class="btn btn-primary" href="https://github.com/Clare-Nie/MemOnce" target="_blank" rel="noopener">GitHub</a>
-   <a class="btn" href="#method">Method</a>
-   <a class="btn" href="https://huggingface.co/ClareNie/MemOnce" target="_blank" rel="noopener">HuggingFace</a>
+   <a class="btn btn-primary" href="https://arxiv.org/abs/XXXX.XXXXX" target="_blank" rel="noopener">
+     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+     <span>Paper (arXiv)</span>
+   </a>
+   <a class="btn btn-outline" href="https://github.com/Clare-Nie/MemOnce" target="_blank" rel="noopener">
+     <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.4 7.4 0 0 1 2-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+     <span>Code (GitHub)</span>
+   </a>
+   <a class="btn btn-outline" href="https://huggingface.co/ClareNie/MemOnce" target="_blank" rel="noopener">
+     <svg viewBox="0 0 16 16"><rect width="16" height="16" rx="4.5" fill="#ffd21e"/><text x="8" y="11.8" text-anchor="middle" font-size="10.5" font-weight="800" font-family="Arial,sans-serif" fill="#20202a">h</text></svg>
+     <span>Models (HuggingFace)</span>
+   </a>
   </div>
  </div>
 </header>
@@ -224,7 +245,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:34px 0}
   <div class="section-heading rv">
    <span class="eyebrow">Key features</span>
    <h2 class="section-title">Store less, remember more</h2>
-   <p class="section-subtitle">Four properties that separate MemOnce from a growing KV cache.</p>
+   <p class="section-subtitle">Four properties that separate MemOnce from standard growing KV caches.</p>
   </div>
   <div class="features-grid">
    <article class="feature-card c-blue rv">
@@ -438,7 +459,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:34px 0}
 
 <footer>
  <div class="container foot">
-  <a href="#top" class="brand"><img src="assets/favicon.svg" alt="">Mem<em>Once</em></a>
+  <a href="#top" class="brand"><img src="assets/favicon.svg" alt="MemOnce"><span>Mem<span class="brand-once">Once</span></span></a>
   <span>© 2026 MemOnce · Nanjing University &amp; USTC</span>
   <span><a href="mailto:changnie@smail.nju.edu.cn">changnie@smail.nju.edu.cn</a></span>
  </div>
