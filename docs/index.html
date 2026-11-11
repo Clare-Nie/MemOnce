@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="MemOnce is a scalable memory architecture that writes compact memory once, retrieves relevant states once, and decodes KV caches on demand.">
 <meta name="theme-color" content="#1B42E0">
-<title>MemOnce</title>
+<title>MemOnce — A Scalable Memory Architecture for Long-Horizon Inference</title>
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,6 +42,10 @@ section{scroll-margin-top:66px}
 .brandpill .wordmark{width:80px;height:auto;flex:none}
 .brandpill .yr{display:none}
 .pillrow{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;align-items:center}
+.hero .pillrow{margin-top:4px}
+.hero .pill{padding:8px 18px;font-size:13px;border-radius:999px}
+.pill--primary{background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:0 4px 14px rgba(27,66,224,.22)}
+.pill--primary:hover{background:#1736bd;border-color:#1736bd;color:#fff}
 
 /* ---------- nav ---------- */
 .nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,.9);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
@@ -63,7 +67,7 @@ section{scroll-margin-top:66px}
             linear-gradient(180deg,#fff,#f8faff);
  border-bottom:1px solid var(--line)}
 .hero-in{position:relative}
-.hero h1{font-size:clamp(28px,4.1vw,47px);line-height:1.16;letter-spacing:-.035em;font-weight:800;margin:20px auto 12px;max-width:860px}
+.hero h1{font-size:clamp(28px,4.1vw,47px);line-height:1.16;letter-spacing:-.035em;font-weight:800;margin:0 auto 14px;max-width:860px}
 .hero h1 .ac{background:linear-gradient(100deg,var(--blue),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
 .hero-sub{font-size:clamp(14px,1.5vw,17px);color:var(--muted);max-width:660px;margin:0 auto 20px}
 .authors{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 15px;font-size:14px;font-weight:700;color:var(--ink2);margin-bottom:4px}
@@ -207,7 +211,7 @@ h2.t{font-size:clamp(25px,3vw,34px);font-weight:800;letter-spacing:-.03em;line-h
 /* ================================================================
    SECTION 2 — two capabilities, side by side
    ================================================================ */
-.pair{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.pair{display:grid;grid-template-columns:1fr;gap:18px;max-width:900px;margin-inline:auto}
 .panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:13px;margin:0}
 .panel img{width:100%;border-radius:8px;cursor:zoom-in}
 .panel .cap{padding:12px 5px 3px}
@@ -313,12 +317,14 @@ footer a{color:#dbe3ff}
 
 <header class="hero" id="top">
  <div class="wrap hero-in">
-  <span class="pill brandpill"><img class="wordmark" src="assets/icon.png" alt="MemOnce"></span>
+  <h1>A scalable memory architecture for <span class="ac">long-horizon inference</span></h1>
+  <p class="hero-sub">MemOnce caches compact final-layer memory states instead of per-layer KV, retrieves the relevant ones once per query, and decodes them into layer-specific KV caches on demand — <b>1313× smaller state</b> and <b>6.9× faster prefill</b> at 1M tokens.</p>
   <div class="authors"><span>Chang Nie<sup>1</sup></span><span>Chaoyou Fu<sup>1</sup></span><span>Songlin Liu<sup>2</sup></span><span>Yiqing Hu<sup>2</sup></span><span>Caifeng Shan<sup>1</sup></span></div>
   <div class="affils"><span><sup>1</sup> Nanjing University</span><span><sup>2</sup> University of Science and Technology of China</span></div>
   <div class="pillrow">
-   <a href="#demo" class="pill">Architecture</a>
+   <a href="https://github.com/Clare-Nie/MemOnce" target="_blank" rel="noopener" class="pill pill--primary">Code</a>
    <a href="https://huggingface.co/ClareNie/MemOnce" target="_blank" rel="noopener" class="pill"><svg class="logo" viewBox="0 0 16 16" aria-hidden="true"><rect width="16" height="16" rx="4.5" fill="#ffd21e"/><text x="8" y="11.8" text-anchor="middle" font-size="10.5" font-weight="800" font-family="Arial,sans-serif" fill="#20202a">h</text></svg>Models</a>
+   <a href="#appendix" class="pill">Cite</a>
   </div>
  </div>
 </header>
