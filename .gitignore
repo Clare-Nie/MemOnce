@@ -1,0 +1,8 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+
+# local checkpoints / data (weights live on Hugging Face)
+ckpt/
+output/
+*.bin
