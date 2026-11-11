@@ -161,7 +161,7 @@ hf download ClareNie/MemOnce --local-dir model
 ### 3. Run Inference
 
 ```bash
-cd test/post-training
+cd eval/post-training
 export BASE=/path/to/Qwen3.5-4B
 export CKPT=../../model
 
@@ -207,7 +207,7 @@ python inference.py --base-model "$BASE" --checkpoint "$CKPT" \
 ├── post-training/                   # Adapt a frozen Qwen3.5 backbone
 │   ├── model.py                     #   MemOnceConfig + MemOnceModel
 │   └── train.py                     #   HF Trainer / DDP entry
-├── test/
+├── eval/
 │   ├── pre-training/eval_zeroshot.py # 8-task lm-eval harness
 │   └── post-training/
 │       ├── inference.py             #   Load ckpt → write memory → answer
@@ -236,7 +236,7 @@ torchrun --nproc_per_node=8 train.py --size 945m \
 
 # Validation perplexity & 8-task zero-shot evaluation
 python eval.py --ckpt ckpt/memonce_945/step21748.pt --data val.bin
-python ../test/pre-training/eval_zeroshot.py \
+python ../eval/pre-training/eval_zeroshot.py \
     --ckpt ckpt/memonce_945/step21748.pt --tokenizer /path/to/llama2_tokenizer
 ```
 - **Defaults:** `seq-len = 4096`, `span = 128`, `mem-tokens = 16` (`r = 8`), `block-size = 1024`. Use `--mem-tokens 128` for uncompressed (`r = 1`) and `--mem-budget` to enable top-`K` retrieval. Resume with `--init-from <ckpt> --start-step N`.
@@ -265,7 +265,7 @@ torchrun --standalone --nproc_per_node=8 train.py \
 Supported benchmarks via `--bench`: `membench`, `locomo`, `longmemeval`, `personamem128`, `personamem1m`, and `HotpotQA`.
 
 ```bash
-cd test/post-training
+cd eval/post-training
 python bench.py --help  # View all benchmark arguments
 
 # Option-letter scoring (no LLM judge needed)
