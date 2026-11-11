@@ -2,7 +2,7 @@
 
 <img src="assets/icon.png" width="300" alt="MemOnce"/>
 
-**A scalable memory architecture for long-horizon language model inference.**
+**A Scalable Memory Architecture for Large Language Models.**
 
 **Chang Nie<sup>1</sup>** · **Chaoyou Fu<sup>1</sup>** · **Songlin Liu<sup>2</sup>** · **Yiqing Hu<sup>2</sup>** · **Caifeng Shan<sup>1</sup>**
 
@@ -311,7 +311,3 @@ Byte-identical weights with greedy decoding reproduce the released generations. 
 ## License
 
 Code and released checkpoints are provided for research use. A formal license file will be added with the public release.
-
-## Contact
-
-Questions and issues are welcome — open a GitHub issue or reach out at `changnie@smail.nju.edu.cn` / `bradyfu24@gmail.com`.
