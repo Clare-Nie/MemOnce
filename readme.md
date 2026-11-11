@@ -22,12 +22,12 @@ Existing architectures force a painful trade-off: standard Transformers accumula
 
 MemOnce breaks this bottleneck with a simple yet effective principle: **cache a single compact global memory, and retrieve it only once.**
 
-### ✨ Highlights
+## ✨ Highlights
 
 - 🧠 **Scalable Architecture:** Caches and retrieves memory **only once**, simultaneously achieving **accurate recall**, **linear-time complexity**, and a **constant active GPU memory budget**.
 - 🧱 **Foundation Performance:** Consistently outperforms Transformer, linear GDN, and YOCO across model sizes, benefiting from **depth-time cache recurrence and compression**.
 - 🎯 **Native Memory:** The first native memory model to surpass full-context baselines, beating prior methods like M+ and Metis without catastrophic forgetting.
-- ⚡ **Inference Scalability:** At 1M context, reduces GPU cache by **1313×**, accelerates prefill by **6.9×**, and boosts decoding throughput by **3.5×**.
+- ⚡ **Inference Scalability:** At 1M context, slashes active GPU cache by **1,313×**, accelerates prefill by **6.9×**, and boosts decoding throughput by **3.5×**.
 
 ---
 
@@ -39,7 +39,7 @@ MemOnce breaks this bottleneck with a simple yet effective principle: **cache a 
   <sub><b>Figure 1.</b> Overview of the MemOnce hybrid backbone, memory encoder-decoder, and memory sparse attention.</sub>
 </p>
 
-MemOnce includes two coupled designs:
+MemOnce unifies two coupled designs:
 
 - **Memory Encoder-Decoder:** Caches only a trailing `1/r` subset of final-layer hidden states as compact memory and decodes them into layer-specific KV caches on demand, achieving **`L × r` compression** across depth and time.
 - **Memory Sparse Attention:** Retrieves top-`K` task-relevant memory states **only once** per input and shares the routing indices across all layers and decoding steps, keeping the active GPU state constant while the persistent bank scales on CPU/SSD.
@@ -126,16 +126,13 @@ The learned 1024-d memory index descriptors transfer zero-shot to downstream ret
 | **MemOnce (Ours)** | **4B** | **1024** | **69.21** | **53.06** |
 
 </div>
-
-- **Plug-and-Play Context Reranking:** Selecting the top-20 segments from 256 candidates on LoCoMo, MemOnce boosts agent memory systems **A-MEM** to **60.78 (+17.2)** and **LightMem** to **53.90 (+13.3)**, outperforming the specialized `Qwen3-Reranker-4B` (60.39 / 52.40).
-
 ---
 
 ## 🚀 Quick Start
 
 ### 1. Installation
 
-Requires a `bf16`-capable GPU. Note that Qwen3.5 post-training requires `transformers >= 5.0`.
+Note that Qwen3.5 post-training requires `transformers >= 5.0`.
 
 ```bash
 # For post-training adaptation & long-context inference

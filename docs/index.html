@@ -3,7 +3,6 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script>document.documentElement.classList.add('js');</script>
 <title>MemOnce: A Scalable Memory Architecture for Large Language Models</title>
 <meta name="description" content="MemOnce writes compact final-layer memory states once, retrieves them once per query, and decodes them into layer-specific KV caches on demand. 1313× smaller active state and 6.9× faster prefill at 1M tokens.">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
@@ -72,12 +71,11 @@ img{display:block;max-width:100%}
 .section-subtitle{margin:0;color:var(--muted);font-size:1rem;text-wrap:pretty}
 
 /* ---------- reveal ---------- */
-.rv{opacity:0;transform:translateY(16px);transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1)}
+.rv{opacity:1;transform:none;transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1)}
 .rv.in{opacity:1;transform:none}
 .rv:nth-child(2){transition-delay:.06s}
 .rv:nth-child(3){transition-delay:.12s}
 .rv:nth-child(4){transition-delay:.18s}
-html:not(.js) .rv{opacity:1;transform:none}
 
 /* ---------- feature cards ---------- */
 .features-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px}
@@ -111,6 +109,34 @@ html:not(.js) .rv{opacity:1;transform:none}
 .step .k{display:block;margin-bottom:8px;font-size:.7rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--blue)}
 .step h4{margin:0 0 8px;font-size:1.05rem;font-weight:800}
 .step p{margin:0;font-size:.9rem;color:var(--muted)}
+.method-visual{overflow:hidden;border:1px solid var(--line);border-radius:var(--radius);background:#fff;box-shadow:var(--shadow-soft)}
+.method-svg{display:block;width:100%;height:auto}
+.method-svg text{font-family:"Manrope",Arial,sans-serif;fill:var(--ink2)}
+.method-svg .label{font-size:17px;font-weight:800}.method-svg .small{font-size:13px;font-weight:600;fill:var(--muted)}
+.method-svg .tiny{font-size:11px;font-weight:700;fill:var(--muted)}
+.method-svg .node{fill:#fff;stroke:#cfd7e8;stroke-width:2}
+.method-svg .backbone{fill:#f8faff;stroke:#bdc8df;stroke-width:2}
+.method-svg .attn{fill:#e8efff;stroke:#5276f6;stroke-width:2}
+.method-svg .memory{fill:#fbf3e9;stroke:#d7b68e;stroke-width:2}
+.method-svg .route{fill:none;stroke:#7b3fe4;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:9 10;opacity:.22}
+.method-svg .write-path{fill:none;stroke:#1b42e0;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:9 10;opacity:.2}
+.method-svg .decode-path{fill:none;stroke:#158b83;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:9 10;opacity:.2}
+.method-svg .pulse{opacity:0}
+.method-visual[data-stage="1"] .write-path,.method-visual[data-stage="2"] .route,.method-visual[data-stage="3"] .decode-path{opacity:1;animation:dash-flow 1.15s linear infinite}
+.method-visual[data-stage="1"] .write-node,.method-visual[data-stage="2"] .route-node,.method-visual[data-stage="3"] .decode-node{stroke-width:3;filter:drop-shadow(0 2px 5px rgba(27,66,224,.2))}
+.method-visual[data-stage="1"] .pulse-write,.method-visual[data-stage="2"] .pulse-route,.method-visual[data-stage="3"] .pulse-decode{opacity:1}
+.method-visual[data-stage="1"] .pulse-write{animation:pulse-write 2.3s ease-in-out infinite}
+.method-visual[data-stage="2"] .pulse-route{animation:pulse-route 2.3s ease-in-out infinite}
+.method-visual[data-stage="3"] .pulse-decode{animation:pulse-decode 2.3s ease-in-out infinite}
+@keyframes dash-flow{to{stroke-dashoffset:-38}}
+@keyframes pulse-write{0%,100%{transform:translate(340px,392px)}50%{transform:translate(568px,392px)}}
+@keyframes pulse-route{0%,100%{transform:translate(965px,177px)}50%{transform:translate(790px,177px)}}
+@keyframes pulse-decode{0%,100%{transform:translate(790px,335px)}50%{transform:translate(410px,245px)}}
+.method-controls{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:18px}
+.method-tabs{display:flex;gap:8px;flex-wrap:wrap}
+.method-tab{min-height:40px;padding:8px 14px;border:1px solid var(--line);border-radius:6px;background:#fff;font:inherit;font-size:.82rem;font-weight:800;color:var(--muted);cursor:pointer}
+.method-tab[aria-pressed="true"]{background:#edf2ff;border-color:#9eb2fa;color:var(--blue)}
+.method-caption{min-height:48px;margin:14px 0 0;padding:12px 16px;border-left:3px solid var(--blue);background:#f7f9fc;color:var(--muted);font-size:.9rem}
 
 /* ---------- conclusions ---------- */
 .findings{display:grid;grid-template-columns:1fr 1fr;gap:20px}
@@ -151,8 +177,13 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:34px 0}
   .hero-buttons .btn{min-width:0;padding:10px 6px;font-size:.82rem}
   .section{padding:56px 0}
   .foot{flex-direction:column;text-align:center}
+  .method-visual{overflow-x:auto;overscroll-behavior-inline:contain}
+  .method-svg{min-width:760px}
+  .method-controls{align-items:flex-start;flex-direction:column}
+  .method-tabs{width:100%}
+  .method-tab{padding:8px 10px;font-size:.76rem}
 }
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}.rv{opacity:1!important;transform:none!important}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}.rv{opacity:1!important;transform:none!important}}
 </style>
 </head>
 <body>
@@ -179,7 +210,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:34px 0}
   <div class="affiliation"><span><sup>1</sup> Nanjing University</span><span><sup>2</sup> University of Science and Technology of China</span></div>
   <div class="hero-buttons">
    <a class="btn btn-primary" href="https://github.com/Clare-Nie/MemOnce" target="_blank" rel="noopener">GitHub</a>
-   <a class="btn" href="https://arxiv.org/abs/XXXX.XXXXX" target="_blank" rel="noopener">Paper</a>
+   <a class="btn" href="#method">Method</a>
    <a class="btn" href="https://huggingface.co/ClareNie/MemOnce" target="_blank" rel="noopener">HuggingFace</a>
   </div>
  </div>
@@ -228,10 +259,81 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:34px 0}
    <h2 class="section-title">One memory path across every attention layer</h2>
    <p class="section-subtitle">A hybrid backbone interleaves three linear blocks with one memory sparse attention block; memory is written, indexed and read in three separate steps.</p>
   </div>
-  <figure class="fig-card rv">
-   <img src="assets/arch.png" alt="MemOnce architecture: continual inputs pass through a hybrid backbone; final-layer states are written into long- and short-term memory, one top-K retrieval selects active states, and layer-specific projections decode them into KV caches reused by memory sparse attention." data-zoom>
-   <figcaption><b>Figure 1.</b> The memory encoder-decoder keeps a trailing 1/r subset of final-layer states and decodes the retrieved blocks into layer-specific KV caches.</figcaption>
-  </figure>
+  <div class="method-visual rv" id="methodVisual" data-stage="1">
+   <svg class="method-svg" viewBox="0 0 1200 540" role="img" aria-labelledby="methodSvgTitle methodSvgDesc">
+    <title id="methodSvgTitle">MemOnce writes and retrieves memory once</title>
+    <desc id="methodSvgDesc">History is compressed into one persistent memory bank. Each new query runs one retrieval, then selected states are decoded into layer-specific KV caches shared by attention blocks in the hybrid backbone.</desc>
+    <defs>
+     <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9Z" fill="#1b42e0"/></marker>
+     <marker id="arr-violet" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9Z" fill="#7b3fe4"/></marker>
+     <marker id="arr-teal" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9Z" fill="#158b83"/></marker>
+    </defs>
+    <rect x="36" y="54" width="420" height="432" rx="8" class="backbone"/>
+    <text x="60" y="88" class="label">Hybrid backbone</text>
+    <text x="420" y="88" class="tiny" text-anchor="end">× L stages</text>
+    <rect x="78" y="125" width="336" height="58" rx="6" class="node"/>
+    <text x="246" y="160" class="small" text-anchor="middle">Linear blocks × 3</text>
+    <rect x="78" y="205" width="336" height="74" rx="6" class="attn"/>
+    <text x="246" y="237" class="label" text-anchor="middle">Memory Sparse Attention</text>
+    <text x="246" y="260" class="tiny" text-anchor="middle">shares the same retrieved memory</text>
+    <rect x="78" y="301" width="336" height="58" rx="6" class="node"/>
+    <text x="246" y="336" class="small" text-anchor="middle">Linear blocks × 3</text>
+    <rect x="78" y="381" width="336" height="74" rx="6" class="attn"/>
+    <text x="246" y="413" class="label" text-anchor="middle">Memory Sparse Attention</text>
+    <text x="246" y="436" class="tiny" text-anchor="middle">same indices, no re-retrieval</text>
+    <path d="M246 381V360M246 301V282M246 205V186M246 125V104" fill="none" stroke="#8490aa" stroke-width="2" marker-end="url(#arr-blue)"/>
+    <rect x="75" y="20" width="342" height="48" rx="6" class="node"/>
+    <text x="246" y="50" class="small" text-anchor="middle">Current query</text>
+
+    <rect x="520" y="54" width="642" height="432" rx="8" fill="#fcfcfe" stroke="#d9dfec" stroke-width="2"/>
+    <text x="546" y="88" class="label">One persistent memory path</text>
+    <text x="1138" y="88" class="tiny" text-anchor="end">not copied per layer</text>
+
+    <rect x="560" y="125" width="190" height="104" rx="6" class="memory write-node"/>
+    <text x="655" y="157" class="small" text-anchor="middle">One memory bank</text>
+    <rect x="582" y="174" width="146" height="12" rx="3" fill="#e2c6a6"/>
+    <rect x="582" y="194" width="146" height="12" rx="3" fill="#e2c6a6"/>
+    <text x="655" y="219" class="tiny" text-anchor="middle">compact final-layer states</text>
+    <rect x="560" y="274" width="190" height="72" rx="6" class="node write-node"/>
+    <text x="655" y="303" class="small" text-anchor="middle">Past segments</text>
+    <text x="655" y="326" class="tiny" text-anchor="middle">encoded once when they arrive</text>
+    <path d="M655 274V238" class="write-path" marker-end="url(#arr-blue)"/>
+    <path d="M414 418H490V310H552" class="write-path" marker-end="url(#arr-blue)"/>
+    <circle cx="0" cy="0" r="7" fill="#1b42e0" class="pulse pulse-write"/>
+
+    <rect x="800" y="125" width="174" height="104" rx="6" class="node route-node"/>
+    <text x="887" y="157" class="small" text-anchor="middle">One top-K search</text>
+    <text x="887" y="183" class="tiny" text-anchor="middle">per new query</text>
+    <text x="887" y="207" class="tiny" text-anchor="middle">cosine similarity</text>
+    <path d="M750 176H790" class="route" marker-end="url(#arr-violet)"/>
+    <path d="M417 44H776V142H792" class="route" marker-end="url(#arr-violet)"/>
+    <circle cx="0" cy="0" r="7" fill="#7b3fe4" class="pulse pulse-route"/>
+
+    <rect x="800" y="274" width="174" height="72" rx="6" class="node decode-node"/>
+    <text x="887" y="303" class="small" text-anchor="middle">Selected states</text>
+    <text x="887" y="326" class="tiny" text-anchor="middle">top-K + recent window</text>
+    <path d="M887 229V265" class="route" marker-end="url(#arr-violet)"/>
+    <rect x="1010" y="274" width="124" height="72" rx="6" class="node decode-node"/>
+    <text x="1072" y="303" class="small" text-anchor="middle">Layer KV</text>
+    <text x="1072" y="326" class="tiny" text-anchor="middle">decode on demand</text>
+    <path d="M974 310H1000" class="decode-path" marker-end="url(#arr-teal)"/>
+    <path d="M1010 310H490V242H422" class="decode-path" marker-end="url(#arr-teal)"/>
+    <text x="740" y="380" class="tiny" text-anchor="middle">one retrieval result is decoded into layer-specific KV</text>
+    <text x="740" y="401" class="tiny" text-anchor="middle">and reused by every attention block</text>
+    <circle cx="0" cy="0" r="7" fill="#158b83" class="pulse pulse-decode"/>
+    <text x="600" y="454" class="small">Persistent bank can grow off-device.</text>
+    <text x="600" y="477" class="tiny">Active GPU cache stays bounded by the selected memory budget.</text>
+   </svg>
+  </div>
+  <div class="method-controls rv">
+   <div class="method-tabs" role="group" aria-label="Method stage">
+    <button class="method-tab" type="button" data-stage="1" aria-pressed="true">1 · Write once</button>
+    <button class="method-tab" type="button" data-stage="2" aria-pressed="false">2 · Retrieve once</button>
+    <button class="method-tab" type="button" data-stage="3" aria-pressed="false">3 · Decode and reuse</button>
+   </div>
+   <button class="method-tab" type="button" id="methodPlay" aria-pressed="true">Pause</button>
+  </div>
+  <p class="method-caption rv" id="methodCaption" aria-live="polite">History is encoded into one compact persistent bank as it arrives. Earlier segments are never encoded again.</p>
   <div class="steps">
    <div class="step rv"><span class="k">01 / Write</span><h4>Compress each segment</h4><p>Each turn or 512-token segment becomes one 64-token block of final-layer states, written once with the memory LoRA enabled.</p></div>
    <div class="step rv"><span class="k">02 / Index</span><h4>Describe and retrieve</h4><p>A learned 1024-d projection describes every block; a single cosine search returns the top-K, with a FIFO keeping the 16 most recent.</p></div>
@@ -364,6 +466,37 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:34px 0}
     if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(ok,fb);}else{fb();}
     function fb(){var ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy');ok();}catch(e){}document.body.removeChild(ta);}
   });
+
+  var method=document.getElementById('methodVisual');
+  var caption=document.getElementById('methodCaption');
+  var methodPlay=document.getElementById('methodPlay');
+  var methodStage=1, methodTimer=null;
+  var methodCopy={
+    1:'History is encoded into one compact persistent bank as it arrives. Earlier segments are never encoded again.',
+    2:'Each new query runs one top-K search over the bank. The selected indices are shared across every attention layer.',
+    3:'Selected states are decoded into layer-specific KV caches once for this query, then reused by all attention blocks and decoding steps.'
+  };
+  function setMethodStage(stage){
+    methodStage=stage;
+    method.dataset.stage=stage;
+    caption.textContent=methodCopy[stage];
+    document.querySelectorAll('.method-tab[data-stage]').forEach(function(tab){
+      tab.setAttribute('aria-pressed',String(Number(tab.dataset.stage)===stage));
+    });
+  }
+  function stopMethod(){clearInterval(methodTimer);methodTimer=null;}
+  function startMethod(){stopMethod();if(methodPlay.getAttribute('aria-pressed')==='true'&&!matchMedia('(prefers-reduced-motion: reduce)').matches)methodTimer=setInterval(function(){setMethodStage(methodStage%3+1);},3200);}
+  document.querySelectorAll('.method-tab[data-stage]').forEach(function(tab){
+    tab.addEventListener('click',function(){setMethodStage(Number(tab.dataset.stage));startMethod();});
+  });
+  methodPlay.addEventListener('click',function(){
+    var playing=methodPlay.getAttribute('aria-pressed')==='true';
+    methodPlay.setAttribute('aria-pressed',String(!playing));
+    methodPlay.textContent=playing?'Play':'Pause';
+    startMethod();
+  });
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){methodPlay.setAttribute('aria-pressed','false');methodPlay.textContent='Play';}
+  else startMethod();
 
   var items=document.querySelectorAll('.rv');
   if(!('IntersectionObserver' in window)){items.forEach(function(el){el.classList.add('in');});return;}
