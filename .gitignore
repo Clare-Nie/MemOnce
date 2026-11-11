@@ -3,6 +3,7 @@ __pycache__/
 .DS_Store
 
 # local checkpoints / data (weights live on Hugging Face)
+model/
 ckpt/
 output/
 *.bin
