@@ -2,11 +2,7 @@
 
 <img src="docs/assets/icon.png" width="260" alt="MemOnce"/>
 
-### A Scalable Memory Architecture for Long-Horizon Language Model Inference
-
-**Chang Nie<sup>1</sup>** · **Chaoyou Fu<sup>1</sup>** · **Songlin Liu<sup>2</sup>** · **Yiqing Hu<sup>2</sup>** · **Caifeng Shan<sup>1</sup>**
-
-<sup>1</sup> Nanjing University &nbsp;·&nbsp; <sup>2</sup> University of Science and Technology of China
+## A Scalable Memory Architecture for Long-Horizon Language Model Inference
 
 <p>
   <a href="https://clare-nie.github.io/MemOnce/"><img src="https://img.shields.io/badge/Website-1B42E0?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Website"></a>
@@ -40,7 +36,7 @@
 Transformers accumulate ever-growing KV caches over long horizons, while linear recurrent models compress history into fixed-size states at the cost of fine-grained recall. **MemOnce** resolves this trade-off via two coupled designs:
 
 <p align="center">
-  <img src="docs/assets/arch.png" width="88%" alt="MemOnce Architecture"/>
+  <img src="docs/assets/arch.png" width="60%" alt="MemOnce Architecture"/>
   <br>
   <sub><b>Figure 1.</b> Overview of the MemOnce hybrid backbone, memory encoder-decoder, and memory sparse attention.</sub>
 </p>
@@ -79,8 +75,8 @@ Transformers accumulate ever-growing KV caches over long horizons, while linear 
   <sub><b>Figure 3.</b> Language modeling perplexity and 8-task zero-shot reasoning accuracy of foundation architectures.</sub>
 </p>
 
-- **Lossless 8× Compression:** Compressing the temporal dimension by **8×** (`r = 8`) and discarding cross-segment linear states incur virtually no accuracy loss (< 0.3%).
-- **Superior Scaling:** Consistently outperforms Transformer, GDN, SWA, MLA, and YOCO from 150M to 1B parameters, beating even a **1.4× larger** Transformer on downstream reasoning without long-range perplexity degradation.
+- **Near-Lossless 64× Depth–Time Compression:** Combines layer-depth elimination with temporal pooling ($L \times r = 8 \times 8 = \mathbf{64\times}$) while discarding cross-segment recurrent states, incurring virtually zero downstream accuracy loss (< 0.3%, 52.63% → 52.35%).
+- **Superior Foundation Scaling:** Consistently achieves the lowest validation perplexity and highest zero-shot accuracy across 150M to 1B scales. It outperforms Transformer, GDN, SWA, MLA, and YOCO, surpasses a **1.4× larger** Transformer on downstream reasoning, and avoids the catastrophic long-range perplexity spikes seen in pure linear RNNs (PPL 19.28 vs 26.03+).
 
 ### 2. Long-Context Memory (4K to 1M Tokens)
 
@@ -114,8 +110,8 @@ Transformers accumulate ever-growing KV caches over long horizons, while linear 
 
 </div>
 
-- **Linear Prefill & Constant Cache:** Prefill scales linearly from **1.38 s** (32K) to **41.36 s** (1M), while active GPU memory remains flat at **25.0 MB** with near-invariant decoding throughput (**29.3 tok/s**).
-- **Fast Single-Shot Indexing:** End-to-end query indexing and memory loading at 128K takes only **64.24 ms** — **12.0× faster** than layer-wise retrieval in M+ and **17.0× faster** than RAG-Rewrite.
+- **Linear Prefill & Constant Cache:** Prefill scales linearly from **1.38 s** (32K) to **41.36 s** (1M), while active GPU memory remains bounded at **25.0 MB** with near-invariant decoding throughput (**29.3 tok/s**).
+- **Fast Retrieval & On-Demand Decoding:** End-to-end memory retrieval and layer-wise KV decoding take only **64.24 ms** at 128K context — **12.0× faster** than layer-wise retrieval in M+ (`772.50 ms`) and **17.0× faster** than RAG-Rewrite (`1094.30 ms`).
 
 ### 4. Zero-Shot Transfer to Representation Tasks
 
