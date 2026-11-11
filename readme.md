@@ -2,7 +2,7 @@
 
 <img src="docs/assets/icon.png" width="260" height="120"  alt="MemOnce"/>
 
-## A Scalable Memory Architecture for Long-Horizon Language Model Inference
+## A Scalable Memory Architecture for Large Language Models
 
 <p>
   <a href="https://clare-nie.github.io/MemOnce/"><img src="https://img.shields.io/badge/Website-1B42E0?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Website"></a>
