@@ -1,8 +1,8 @@
 <div align="center">
 
-<img src="assets/icon.png" width="300" alt="MemOnce"/>
+<img src="docs/assets/icon.png" width="300" alt="MemOnce"/>
 
-**A Scalable Memory Architecture for Large Language Models.**
+**A scalable memory architecture for long-horizon language model inference.**
 
 **Chang Nie<sup>1</sup>** · **Chaoyou Fu<sup>1</sup>** · **Songlin Liu<sup>2</sup>** · **Yiqing Hu<sup>2</sup>** · **Caifeng Shan<sup>1</sup>**
 
@@ -31,7 +31,7 @@ Long-horizon interaction requires reusable memory without an ever-growing GPU ca
 - **Memory sparse attention** — for each new input, retrieve the top-`K` task-relevant memory states **once** and share that routing decision across all attention layers and decoding steps. The persistent bank can grow (and be offloaded to CPU/SSD), while the GPU-resident active state stays constant.
 
 <p align="center">
-  <a href="assets/arch.png"><img src="assets/arch.png" alt="MemOnce architecture: continual inputs pass through a hybrid backbone of linear blocks and memory sparse attention; final-layer states are written into long- and short-term memory, a single top-K retrieval selects the active states, and layer-specific projections decode them into KV caches reused by every layer."/></a>
+  <a href="docs/assets/arch.png"><img src="docs/assets/arch.png" alt="MemOnce architecture: continual inputs pass through a hybrid backbone of linear blocks and memory sparse attention; final-layer states are written into long- and short-term memory, a single top-K retrieval selects the active states, and layer-specific projections decode them into KV caches reused by every layer."/></a>
 </p>
 
 <p align="center"><em>Figure 1 · The hybrid backbone interleaves three linear blocks with one memory sparse attention block per stage; the memory encoder-decoder compresses history into a small set of final-layer states, then decodes the top-<code>K</code> retrieved states into layer-specific KV caches.</em></p>
@@ -53,10 +53,10 @@ MemOnce works as a **foundation architecture trained from scratch** (150M–1B, 
 
 ## Results
 
-<sub>All numbers are from the paper; the figures are the paper's original artwork, stored under [`assets/`](assets/).</sub>
+<sub>All numbers are from the paper; the figures are the paper's original artwork, stored under [`docs/assets/`](docs/assets/).</sub>
 
 <p align="center">
-  <a href="assets/overall_performance.png"><img src="assets/overall_performance.png" alt="Left: memory state cache versus context length for Transformer, GDN, Hybrid, YOCO and MemOnce. Right: overall memory performance versus prefill time at 1M tokens."/></a>
+  <a href="docs/assets/overall_performance.png"><img src="docs/assets/overall_performance.png" alt="Left: memory state cache versus context length for Transformer, GDN, Hybrid, YOCO and MemOnce. Right: overall memory performance versus prefill time at 1M tokens."/></a>
 </p>
 
 <p align="center"><em>Figure 2 · Left: the memory state cache stays flat at 25 MB from 4K to 1M tokens, 1313× below the Transformer. Right: overall memory performance vs. prefill time at 1M context — MemOnce sits at the top-left corner.</em></p>
@@ -64,13 +64,13 @@ MemOnce works as a **foundation architecture trained from scratch** (150M–1B, 
 ### 1. Foundation capability (pre-training from scratch)
 
 <p align="center">
-  <a href="assets/training_curves.png"><img src="assets/training_curves.png" alt="Left: validation perplexity versus training tokens for compression ratios r = 1, 2, 4, 8 and baselines. Right: validation perplexity versus model scale from 0.15B to 1.0B parameters."/></a>
+  <a href="docs/assets/training_curves.png"><img src="docs/assets/training_curves.png" alt="Left: validation perplexity versus training tokens for compression ratios r = 1, 2, 4, 8 and baselines. Right: validation perplexity versus model scale from 0.15B to 1.0B parameters."/></a>
 </p>
 
 <p align="center"><em>Figure 3 · Left: validation PPL across compression ratios (<code>r = 1, 2, 4, 8</code>) and baselines. Right: scaling from 0.15B to 1.0B parameters — MemOnce gives the best scaling behaviour.</em></p>
 
 <p align="center">
-  <a href="assets/foundation_performance.png"><img src="assets/foundation_performance.png" alt="Language modeling perplexity and eight-task zero-shot reasoning accuracy of foundation architectures."/></a>
+  <a href="docs/assets/foundation_performance.png"><img src="docs/assets/foundation_performance.png" alt="Language modeling perplexity and eight-task zero-shot reasoning accuracy of foundation architectures."/></a>
 </p>
 
 <p align="center"><em>Figure 4 · Language-modelling and zero-shot reasoning results of the foundation architectures trained from scratch.</em></p>
@@ -80,7 +80,7 @@ MemOnce works as a **foundation architecture trained from scratch** (150M–1B, 
 ### 2. Long-context memory: 4K to 1M tokens
 
 <p align="center">
-  <a href="assets/memory_performance.png"><img src="assets/memory_performance.png" alt="Five memory benchmarks evaluated from 4K to 1M tokens."/></a>
+  <a href="docs/assets/memory_performance.png"><img src="docs/assets/memory_performance.png" alt="Five memory benchmarks evaluated from 4K to 1M tokens."/></a>
 </p>
 
 <p align="center"><em>Figure 5 · Five memory benchmarks spanning 4K to 1M tokens.</em></p>
@@ -107,7 +107,7 @@ Soft-prompt and in-backbone-state methods perturb activations and cause severe f
 ### 4. Inference efficiency and scalability
 
 <p align="center">
-  <a href="assets/inference_scalability.png"><img src="assets/inference_scalability.png" alt="Prefill time, memory state cache and decoding throughput from 32K to 1M tokens."/></a>
+  <a href="docs/assets/inference_scalability.png"><img src="docs/assets/inference_scalability.png" alt="Prefill time, memory state cache and decoding throughput from 32K to 1M tokens."/></a>
 </p>
 
 <p align="center"><em>Figure 6 · Prefill time, memory state cache and decoding throughput from 32K to 1M tokens.</em></p>
@@ -187,8 +187,9 @@ python inference.py --base-model "$BASE" --checkpoint "$CKPT" \
 ### Repository layout
 
 ```text
-├── assets/                          # Paper figures used by this README
-├── docs/index.html                  # Project page (GitHub Pages)
+├── docs/
+│   ├── index.html                   # Project page (GitHub Pages)
+│   └── assets/                      # Paper figures used by this README
 ├── pre-training/                    # Train MemOnce from scratch
 │   ├── memonce.py                   #   Self-contained model (torch + fla)
 │   ├── train.py                     #   DDP pre-training entry
