@@ -14,32 +14,41 @@
 
 ---
 
-## ✨ Highlights
+## 📖 Contents
+
+- [Overview](#-Overview)
+- [Architecture](#-framework)
+- [Main Results](#-main-results)
+- [Quick Start](#-quick-start)
+- [Training & Evaluation](#-training--evaluation)
+- [Citation](#-citation)
+
+## 🧬 Overview
+
+**MemOnce** is a foundation architecture designed for long-horizon continual language modeling.
+
+Existing architectures force a painful trade-off: standard Transformers accumulate massive, multi-layer KV caches that easily blow up GPU memory, while linear/recurrent models compress context into fixed-size states that suffer from severe information loss.
+
+MemOnce breaks this bottleneck with a simple yet effective principle: **maintain a single compact memory bank, and retrieve it only once.**
+
+### ✨ Highlights
 
 - 🧠 **Scalable Architecture:** Caches and retrieves memory **only once**, simultaneously achieving **accurate recall**, **linear-time complexity**, and a **constant active GPU memory budget**.
 - 🧱 **Foundation Performance:** Consistently outperforms Transformer, linear GDN, and YOCO across model sizes, benefiting from **depth-time cache recurrence and compression**.
 - 🎯 **Native Memory:** The first native memory model to surpass full-context baselines, beating prior methods like M+ and Metis without catastrophic forgetting.
 - ⚡ **Inference Scalability:** At 1M context, reduces GPU cache by **1313×**, accelerates prefill by **6.9×**, and boosts decoding throughput by **3.5×**.
 
-## 📖 Contents
-
-- [Framework](#-framework)
-- [Main Results](#-main-results)
-- [Quick Start](#-quick-start)
-- [Training & Evaluation](#-training--evaluation)
-- [Citation](#-citation)
-
 ---
 
-## 🎨 Framework
-
-Transformers accumulate ever-growing KV caches over long horizons, while linear recurrent models compress history into fixed-size states at the cost of fine-grained recall. **MemOnce** resolves this trade-off via two coupled designs:
+## 🎨 Architecture
 
 <p align="center">
   <img src="docs/assets/arch.png" width="60%" alt="MemOnce Architecture"/>
   <br>
   <sub><b>Figure 1.</b> Overview of the MemOnce hybrid backbone, memory encoder-decoder, and memory sparse attention.</sub>
 </p>
+
+MemOnce includes two coupled designs:
 
 - **Memory Encoder-Decoder:** Caches only a trailing `1/r` subset of final-layer hidden states as compact memory and decodes them into layer-specific KV caches on demand, achieving **`L × r` compression** across depth and time.
 - **Memory Sparse Attention:** Retrieves top-`K` task-relevant memory states **only once** per input and shares the routing indices across all layers and decoding steps, keeping the active GPU state constant while the persistent bank scales on CPU/SSD.
