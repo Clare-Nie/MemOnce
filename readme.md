@@ -255,7 +255,6 @@ torchrun --standalone --nproc_per_node=8 train.py \
     --dataset-path /path/to/stage1_training_dataset \
     --output-dir output/memonce4b
 ```
-- **Recipe:** AdamW (`lr = 5e-5`, linear schedule), batch size `1 × 4 grad_accum × 8 GPUs`, `bf16`, gradient checkpointing, `max-length = 32768`, `max-steps = 15625` (released checkpoint is step `10000`).
 </details>
 
 <details>

@@ -9,7 +9,7 @@
 # Data: a directory of *.json files; each sample is {"messages": [...]}
 # ending with an assistant turn. Recipe: adamw lr 5e-5 (linear), batch
 # 1 x accum 4 x world ranks, bf16, grad-checkpointing, max_length 32768,
-# save every 500 steps (max_steps 15625; the released checkpoint is step 10000).
+# save every 500 steps (max_steps 15625).
 import argparse, json, os, sys
 from pathlib import Path
 from typing import Any, Dict, List
