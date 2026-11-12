@@ -81,8 +81,17 @@ MemOnce unifies two coupled designs:
   <sub><b>Figure 3.</b> Language modeling perplexity and 8-task zero-shot reasoning accuracy of foundation architectures.</sub>
 </p>
 
+<details>
+<summary><b>📊 Full Pre-training Scaling Results (150M – 1B Parameters, Click to expand)</b></summary>
+<br>
+<p align="center">
+  <img src="docs/assets/scaling_table.png" width="95%" alt="Pre-training scaling comparison from 150M to 1B parameters"/>
+</p>
+</details>
+
 - **Near-Lossless 64× Depth–Time Compression:** Combines layer-depth elimination with temporal pooling (`L × r = 8 × 8 = 64×`) while discarding cross-segment recurrent states, incurring virtually zero downstream accuracy loss (< 0.3%, 52.63% → 52.35%).
 - **Superior Foundation Scaling:** Consistently achieves the lowest validation perplexity and highest zero-shot accuracy across 150M to 1B scales. It outperforms Transformer, GDN, SWA, MLA, and YOCO, surpasses a **1.4× larger** Transformer on downstream reasoning, and avoids the catastrophic long-range perplexity spikes seen in pure linear RNNs (PPL 19.28 vs 26.03+).
+
 
 ### 2. Long-Context Memory (4K to 1M Tokens)
 
