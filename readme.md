@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="docs/assets/icon.png" width="260" alt="MemOnce"/>
+<img src="docs/assets/icon.png" width="260" height="100"  alt="MemOnce"/>
 
 ## A Scalable Memory Architecture for Long-Horizon Language Model Inference
 
