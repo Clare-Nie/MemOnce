@@ -20,7 +20,7 @@
 
 Existing architectures force a painful trade-off: standard Transformers accumulate massive, multi-layer KV caches that easily blow up GPU memory, while linear/recurrent models compress context into fixed-size states that suffer from severe information loss.
 
-MemOnce breaks this bottleneck with a simple yet effective principle: **maintain a single compact memory bank, and retrieve it only once.**
+MemOnce breaks this bottleneck with a simple yet effective principle: **cache a single compact global memory, and retrieve it only once.**
 
 ### ✨ Highlights
 
