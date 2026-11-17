@@ -92,7 +92,7 @@ MemOnce includes two coupled designs:
 ### 3. Inference Efficiency and Scalability
 
 <p align="center">
-  <img src="docs/assets/inference_scalability.png" width="85%" alt="Inference Scalability"/>
+  <img src="docs/assets/inference_scalability.png" width="99%" alt="Inference Scalability"/>
   <br>
   <sub><b>Figure 5.</b> Prefill latency, active GPU memory cache, and decoding throughput from 32K to 1M tokens.</sub>
 </p>
