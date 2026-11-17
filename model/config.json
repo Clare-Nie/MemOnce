@@ -1,0 +1,23 @@
+{
+  "architectures": [
+    "NativeMemoryModel"
+  ],
+  "attn_implementation": "sdpa",
+  "dtype": "bfloat16",
+  "lora_alpha": 256,
+  "lora_dropout": 0.05,
+  "lora_r": 128,
+  "memory_views": 1,
+  "model_type": "nativememory_exp37",
+  "num_memory_tokens": 64,
+  "retrieval_embedding_dim": 1024,
+  "retrieval_loss_weight": 0.1,
+  "retrieval_margin": 2.0,
+  "retrieval_score_threshold": 5.0,
+  "retrieval_temperature": 0.1,
+  "retrieve_blocks": 64,
+  "short_state_tokens": 1024,
+  "target_len": 4096,
+  "transformers_version": "5.14.1",
+  "use_cache": false
+}
