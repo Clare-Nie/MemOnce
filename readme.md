@@ -22,6 +22,12 @@ Existing architectures force a painful trade-off: standard Transformers accumula
 
 MemOnce breaks this bottleneck with a simple yet effective principle: **cache a single compact global memory, and retrieve it only once.**
 
+<p align="center">
+  <img src="docs/assets/overall_performance.png" width="92%" alt="MemOnce Teaser"/>
+  <br>
+  <sub><b>Figure 1.</b> <b>(Left)</b> Memory state cache vs. context length. <b>(Right)</b> Overall memory performance vs. prefill latency and decoding throughput.</sub>
+</p>
+
 ## ✨ Highlights
 
 - 🧠 **Scalable Architecture:** Caches and retrieves memory **only once**, simultaneously achieving **accurate recall**, **linear-time complexity**, and a **constant active GPU memory budget**.
@@ -75,7 +81,7 @@ MemOnce unifies two coupled designs:
   <sub><b>Figure 3.</b> Language modeling perplexity and 8-task zero-shot reasoning accuracy of foundation architectures.</sub>
 </p>
 
-- **Near-Lossless 64× Depth–Time Compression:** Combines layer-depth elimination with temporal pooling ($L \times r = 8 \times 8 = \mathbf{64\times}$) while discarding cross-segment recurrent states, incurring virtually zero downstream accuracy loss (< 0.3%, 52.63% → 52.35%).
+- **Near-Lossless 64× Depth–Time Compression:** Combines layer-depth elimination with temporal pooling (`L × r = 8 × 8 = 64×`) while discarding cross-segment recurrent states, incurring virtually zero downstream accuracy loss (< 0.3%, 52.63% → 52.35%).
 - **Superior Foundation Scaling:** Consistently achieves the lowest validation perplexity and highest zero-shot accuracy across 150M to 1B scales. It outperforms Transformer, GDN, SWA, MLA, and YOCO, surpasses a **1.4× larger** Transformer on downstream reasoning, and avoids the catastrophic long-range perplexity spikes seen in pure linear RNNs (PPL 19.28 vs 26.03+).
 
 ### 2. Long-Context Memory (4K to 1M Tokens)
@@ -126,6 +132,7 @@ The learned 1024-d memory index descriptors transfer zero-shot to downstream ret
 | **MemOnce (Ours)** | **4B** | **1024** | **69.21** | **53.06** |
 
 </div>
+
 ---
 
 ## 🚀 Quick Start
