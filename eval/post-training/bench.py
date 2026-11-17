@@ -23,7 +23,7 @@ Benchmarks and expected files under --data-dir:
                  (random 500, seed 20261016, grouped by conversation)
   membench       {FirstAgent,ThirdAgent}/*.json (the MemData layout)
 
-locomo / longmemeval / msa require an LLM judge (--judge-url); personamem
+locomo / longmemeval / HotpotQA require an LLM judge (--judge-url); personamem
 and membench are scored by option-letter rules.
 """
 import argparse
@@ -285,7 +285,7 @@ def load_membench(data_dir, limit=None):
     return items
 
 
-def load_msa(args, tok):
+def load_hotpotqa(args, tok):
     if args.bank_file:
         bank = [json.loads(l) for l in open(args.bank_file)]
         qs = [json.loads(l) for l in open(args.questions_file)]
@@ -320,27 +320,27 @@ def load_msa(args, tok):
         step = max(1, len(qs) // 500)
         qs = qs[::step][:500]
         for i, item in enumerate(qs):
-            item["qid"] = f"msa_{i:05d}"
+            item["qid"] = f"hotpotqa_{i:05d}"
     msgs = [{"role": "user", "content": f"[{d['pid']}] {d.get('title', '')}\n{d['text']}"}
             for d in bank]
     items = []
     for i, q in enumerate(qs[: args.max_questions] if args.max_questions else qs):
-        qid = q.get("qid", f"msa_{i:05d}")
-        items.append({"qid": qid, "conv": "msa_bank",
+        qid = q.get("qid", f"hotpotqa_{i:05d}")
+        items.append({"qid": qid, "conv": "hotpotqa_bank",
                       "messages": msgs + [{"role": "user", "content": q["question"]}],
                       "question": q["question"], "answer": q["answer"],
-                      "question_type": "msa", "judge": "msa"})
+                      "question_type": "hotpotqa", "judge": "hotpotqa"})
     return items
 
 
-LOADERS = {"msa": None, "locomo": load_locomo, "longmemeval": load_longmemeval,
+LOADERS = {"HotpotQA": None, "locomo": load_locomo, "longmemeval": load_longmemeval,
            "personamem128": lambda d, limit=None: load_personamem(d, "128k", limit),
            "personamem1m": lambda d, limit=None: load_personamem(d, "1M", limit),
            "membench": load_membench}
 
 
 # -------------------------------------------------------------------- score
-def score_item(item, gen, judge, msa_f1):
+def score_item(item, gen, judge, hotpotqa_f1):
     j = item["judge"]
     if j == "locomo":
         return judge(LOCO_JUDGE.format(question=item["question"],
@@ -350,8 +350,8 @@ def score_item(item, gen, judge, msa_f1):
         return judge(lme_anscheck(item.get("question_type", "qa"),
                                   item["question"], item["answer"], gen,
                                   abstention=item.get("abstain", False)))
-    if j == "msa":
-        if msa_f1 or judge is None:
+    if j == "hotpotqa":
+        if hotpotqa_f1 or judge is None:
             return f1_score(gen, item["answer"])
         return judge(FREE_BINARY.format(gold=item["answer"], gen=gen))
     if j == "option_letter":
@@ -367,33 +367,33 @@ def main():
     p.add_argument("--data-dir", type=Path, default=None)
     p.add_argument("--base-model", required=True)
     p.add_argument("--checkpoint", required=True)
-    p.add_argument("--bank-file", type=Path, default=None, help="msa only")
-    p.add_argument("--questions-file", type=Path, default=None, help="msa only")
-    p.add_argument("--budget", type=int, default=1350000, help="msa only")
+    p.add_argument("--bank-file", type=Path, default=None, help="HotpotQA only")
+    p.add_argument("--questions-file", type=Path, default=None, help="HotpotQA only")
+    p.add_argument("--budget", type=int, default=1350000, help="HotpotQA only")
     p.add_argument("--max-questions", type=int, default=None)
     p.add_argument("--max-new-tokens", type=int, default=256)
     p.add_argument("--judge-url", default=None)
     p.add_argument("--judge-model", default=None)
-    p.add_argument("--msa-f1", action="store_true",
-                   help="score msa with F1 instead of the LLM judge")
+    p.add_argument("--hotpotqa-f1", action="store_true",
+                   help="score HotpotQA with F1 instead of the LLM judge")
     p.add_argument("--out", type=Path, default=None)
     p.add_argument("--gens-out", type=Path, default=None)
     a = p.parse_args()
 
     model, tok = load_memonce(a.base_model, a.checkpoint)
-    if a.bench == "msa":
-        items = load_msa(a, tok)
+    if a.bench == "HotpotQA":
+        items = load_hotpotqa(a, tok)
     else:
         if a.data_dir is None:
             p.error(f"--bench {a.bench} requires --data-dir")
         items = LOADERS[a.bench](a.data_dir, a.max_questions)
 
     need_llm = any(it["judge"] in ("locomo", "lme") or
-                   (it["judge"] == "msa" and not a.msa_f1) for it in items)
+                   (it["judge"] == "hotpotqa" and not a.hotpotqa_f1) for it in items)
     judge = LLMJudge(a.judge_url, a.judge_model) if (a.judge_url and need_llm) else None
     if need_llm and judge is None:
         p.error("this benchmark requires --judge-url and --judge-model "
-                "(or --msa-f1 for msa)")
+                "(or --hotpotqa-f1 for HotpotQA)")
 
     by_conv = {}
     for it in items:
@@ -411,7 +411,7 @@ def main():
         for it in qs:
             ans, info = chat.answer(it["messages"][-1]["content"],
                                     a.max_new_tokens)
-            sc = score_item(it, ans, judge, a.msa_f1)
+            sc = score_item(it, ans, judge, a.hotpotqa_f1)
             gens.append({"qid": it["qid"], "question": it["question"],
                          "answer": it["answer"], "generated": ans,
                          "score": sc})
@@ -422,7 +422,7 @@ def main():
     result = {"bench": a.bench, "n": len(gens),
               "score": round(100.0 * sum(vals) / max(1, len(vals)), 2),
               "scoring": ("llm:" + a.judge_model) if judge else
-                         ("f1" if a.bench == "msa" else "rule"),
+                         ("f1" if a.bench == "HotpotQA" else "rule"),
               "seconds": round(time.time() - t0, 1)}
     out = a.out or Path(f"bench_{a.bench}_results.json")
     with open(out, "w") as f:
