@@ -75,20 +75,6 @@ MemOnce works as a **foundation architecture trained from scratch** (150M–1B, 
 
 <p align="center"><em>Figure 4 · Language-modelling and zero-shot reasoning results of the foundation architectures trained from scratch.</em></p>
 
-| Model | WikiText PPL ↓ | LAMBADA PPL ↓ | Avg. 8-task ↑ |
-|---|:---:|:---:|:---:|
-| Transformer | 20.90 | 33.24 | 51.85 |
-| SWA | 20.52 | 32.69 | 51.60 |
-| MLA | 23.07 | 33.37 | 51.87 |
-| DeltaNet | 23.75 | 33.71 | 50.28 |
-| GDN | 26.03 | 33.37 | 52.31 |
-| Hybrid | 19.56 | 32.61 | 51.99 |
-| YOCO | 24.38 | 35.18 | 51.97 |
-| LastKV | 21.12 | 34.04 | 51.09 |
-| Memory Caching | 29.84 | 42.47 | 45.78 |
-| **MemOnce (r = 8)** | 21.08 | **32.45** | **52.35** |
-| **MemOnce (r = 1)** | **19.28** | 32.69 | **52.63** |
-
 8× temporal compression costs virtually no accuracy (52.63 → 52.35), while MemOnce beats a 1.4× larger Transformer on downstream reasoning and avoids the long-range PPL degradation of pure recurrent models.
 
 ### 2. Long-context memory: 4K to 1M tokens
@@ -98,20 +84,6 @@ MemOnce works as a **foundation architecture trained from scratch** (150M–1B, 
 </p>
 
 <p align="center"><em>Figure 5 · Five memory benchmarks spanning 4K to 1M tokens.</em></p>
-
-| Model | MemBench<br><sub>~4K</sub> | LoCoMo<br><sub>~21K</sub> | LongMemEval<br><sub>~115K</sub> | PersonaMem<br><sub>128K</sub> | PersonaMem<br><sub>1M</sub> | Mem. Avg. |
-|---|:---:|:---:|:---:|:---:|:---:|:---:|
-| Qwen3.5-2B · full context | 72.69 | 64.35 | 41.00 | 45.00 | 23.60 | 49.33 |
-| Qwen3.5-4B · full context | 82.64 | **69.55** | 42.20 | 43.50 | 33.60 | 54.30 |
-| δ-Mem · 4B | 46.72 | 16.88 | 11.20 | 40.00 | 31.60 | 29.28 |
-| EvoEmbedding · 4B | 67.08 | 25.97 | 16.40 | 47.30 | 39.00 | 39.15 |
-| Metis · 4B | 47.45 | 9.35 | 7.40 | 37.60 | 37.20 | 27.80 |
-| M+ · 8B | 66.93 | 46.43 | 27.40 | 38.40 | 27.80 | 41.39 |
-| δ-Mem† · 4B | 55.53 | 15.00 | 13.00 | 34.00 | 32.20 | 29.95 |
-| EvoEmbedding† · 4B | 69.13 | 24.68 | 18.60 | 42.50 | 38.80 | 38.74 |
-| Metis† · 4B | 50.03 | 25.06 | 8.80 | 38.90 | 36.00 | 31.76 |
-| **MemOnce** · 2B | 73.54 | 59.03 | 35.40 | 48.50 | 39.40 | **51.17** <sub>+1.84</sub> |
-| **MemOnce** · 4B | **84.34** | 67.01 | **47.40** | **53.60** | **48.00** | **60.07** <sub>+5.77</sub> |
 
 <sub>† Re-trained by us under a unified protocol so that all methods share the same data and evaluation harness; unmarked rows report the numbers from the original papers. The `+1.84` / `+5.77` deltas are gains in Mem. Avg. over the corresponding full-context Qwen3.5 baseline. PersonaMem-1M results use a fixed random subset of 500 questions (seed 20261016).</sub>
 
