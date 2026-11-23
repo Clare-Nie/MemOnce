@@ -290,13 +290,6 @@ sha256sum model.safetensors config.json        # Linux
 
 Byte-identical weights with greedy decoding reproduce the released generations. Reference generations and judge logs are archived in `test/post-training/results/`.
 
-### FAQ
-
-- **`ValueError: model type qwen3_5 not recognized`** — upgrade to `transformers >= 5.0` (`pip install -U transformers`).
-- **OOM during ultra-long writing** — pass `--attn-implementation flash_attention_2`.
-- **Using Qwen3.5-2B** — works out of the box; point `--base-model` at the local 2B directory and `--checkpoint` at the 2B MemOnce checkpoint.
-- **Slow first load** — the base model is read from local disk; set `HF_HUB_OFFLINE=1` to avoid network lookups.
-
 ## Citation
 
 ```bibtex
