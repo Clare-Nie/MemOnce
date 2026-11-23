@@ -14,15 +14,6 @@
 
 ---
 
-## 📖 Contents
-
-- [Overview](#-Overview)
-- [Architecture](#-framework)
-- [Main Results](#-main-results)
-- [Quick Start](#-quick-start)
-- [Training & Evaluation](#-training--evaluation)
-- [Citation](#-citation)
-
 ## 🧬 Overview
 
 **MemOnce** is a foundation architecture designed for long-horizon continual language modeling.
@@ -40,7 +31,7 @@ MemOnce breaks this bottleneck with a simple yet effective principle: **maintain
 
 ---
 
-## 🎨 Architecture
+## 📖 Architecture
 
 <p align="center">
   <img src="docs/assets/arch.png" width="60%" alt="MemOnce Architecture"/>
