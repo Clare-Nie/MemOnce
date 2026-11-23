@@ -1,0 +1,6 @@
+# Qwen3.5 support requires transformers >= 5.0; sdpa attention works,
+# flash-attn is optional. Tested with torch 2.6.
+transformers>=5.0
+peft>=0.14
+accelerate>=1.0
+safetensors>=0.5

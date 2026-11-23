@@ -1,0 +1,9 @@
+torch>=2.4
+numpy
+flash-linear-attention
+triton
+
+# tests (eval_zeroshot.py)
+lm-eval>=0.4,<0.5
+datasets
+transformers>=4.45
