@@ -2,8 +2,7 @@ __pycache__/
 *.py[cod]
 .DS_Store
 
-# released checkpoint lives on Hugging Face, not in this repo
-model/
+# local checkpoints / data (weights live on Hugging Face)
 ckpt/
 output/
 *.bin
