@@ -26,7 +26,7 @@ img{display:block;max-width:100%}
 .container{max-width:1180px;margin:0 auto;padding:0 24px}
 .container.narrow{max-width:920px}
 
-/* ---------- 导航栏 ---------- */
+/* ---------- Navigation Bar ---------- */
 .navbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.86);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(232,236,246,.8)}
 .nav-inner{max-width:1180px;margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between}
 .brand{display:inline-flex;align-items:center;gap:10px;font-weight:800;font-size:1.15rem;letter-spacing:-.03em;color:var(--ink)}
@@ -51,8 +51,10 @@ img{display:block;max-width:100%}
     linear-gradient(180deg,#fff 0%,#f6f9ff 100%);
   border-bottom:1px solid var(--line)}
 .hero-content{width:min(100%,980px);padding:84px 26px 68px}
-.hero-title{margin:0 0 6px;font-size:clamp(3.2rem,8vw,6.4rem);font-weight:800;line-height:.96;letter-spacing:-.04em}
-.hero-title .ac{background:linear-gradient(100deg,var(--blue),var(--violet));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-logo-box{display:flex;justify-content:center;align-items:center;margin:0 auto 18px}
+.hero-logo-img{width:min(100%,560px);height:auto;max-height:160px;object-fit:contain;filter:drop-shadow(0 12px 32px rgba(27,66,224,.15));transition:transform .25s ease}
+.hero-logo-img:hover{transform:scale(1.02)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .hero-subtitle{max-width:760px;margin:0 auto 20px;color:#666e7d;font-size:clamp(1.05rem,2.3vw,1.55rem);font-weight:800;line-height:1.3}
 .authors{display:flex;justify-content:center;flex-wrap:wrap;gap:6px 20px;margin-bottom:6px;color:var(--blue);font-size:.98rem;font-weight:700}
 .authors sup{margin-left:3px;color:var(--muted);font-size:.6em}
@@ -66,7 +68,7 @@ img{display:block;max-width:100%}
 .btn-outline:hover{border-color:#b5c4df}
 .btn svg{width:17px;height:17px}
 
-/* ---------- 结构统一定义 ---------- */
+/* ---------- Common Layout Definitions ---------- */
 .section{padding:84px 0}
 .section--white{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .section-heading{max-width:880px;margin:0 auto 42px;text-align:center}
@@ -77,45 +79,126 @@ img{display:block;max-width:100%}
 .rv{opacity:1;transform:none;transition:opacity .7s cubic-bezier(.22,.61,.36,1),transform .7s cubic-bezier(.22,.61,.36,1)}
 .rv.in{opacity:1;transform:none}
 
-/* ---------- Overview 特有模块 ---------- */
+/* ---------- Overview Modules ---------- */
 .lead-box{margin:0 auto 40px;padding:22px 28px;background:#f2f5fd;border-left:4px solid var(--blue);border-radius:0 8px 8px 0;font-size:1.08rem;font-weight:600;color:var(--ink2);line-height:1.7}
 .lead-box strong{color:var(--blue);font-weight:800}
 
 /* Method visual & steps */
-.method-visual{overflow:hidden;border:1px solid var(--line);border-radius:var(--radius);background:#fff;box-shadow:var(--shadow-soft)}
+.method-visual{overflow:hidden;border:1px solid var(--line);border-radius:var(--radius);background:#fff;box-shadow:var(--shadow-soft);position:relative}
 .method-svg{display:block;width:100%;height:auto}
 .method-svg text{font-family:"Manrope",Arial,sans-serif;fill:var(--ink2)}
-.method-svg .label{font-size:17px;font-weight:800}.method-svg .small{font-size:13px;font-weight:600;fill:var(--muted)}
-.method-svg .tiny{font-size:11px;font-weight:700;fill:var(--muted)}
-.method-svg .node{fill:#fff;stroke:#cfd7e8;stroke-width:2}
-.method-svg .backbone{fill:#f8faff;stroke:#bdc8df;stroke-width:2}
-.method-svg .attn{fill:#e8efff;stroke:#5276f6;stroke-width:2}
-.method-svg .memory{fill:#fbf3e9;stroke:#d7b68e;stroke-width:2}
-.method-svg .route{fill:none;stroke:#7b3fe4;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:9 10;opacity:.22}
-.method-svg .write-path{fill:none;stroke:#1b42e0;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:9 10;opacity:.2}
-.method-svg .decode-path{fill:none;stroke:#158b83;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:9 10;opacity:.2}
-.method-svg .pulse{opacity:0}
-.method-visual[data-stage="1"] .write-path,.method-visual[data-stage="2"] .route,.method-visual[data-stage="3"] .decode-path{opacity:1;animation:dash-flow 1.15s linear infinite}
-.method-visual[data-stage="1"] .write-node,.method-visual[data-stage="2"] .route-node,.method-visual[data-stage="3"] .decode-node{stroke-width:3;filter:drop-shadow(0 2px 5px rgba(27,66,224,.2))}
-.method-visual[data-stage="1"] .pulse-write,.method-visual[data-stage="2"] .pulse-route,.method-visual[data-stage="3"] .pulse-decode{opacity:1}
-.method-visual[data-stage="1"] .pulse-write{animation:pulse-write 2.3s ease-in-out infinite}
-.method-visual[data-stage="2"] .pulse-route{animation:pulse-route 2.3s ease-in-out infinite}
-.method-visual[data-stage="3"] .pulse-decode{animation:pulse-decode 2.3s ease-in-out infinite}
-@keyframes dash-flow{to{stroke-dashoffset:-38}}
-@keyframes pulse-write{0%,100%{transform:translate(340px,392px)}50%{transform:translate(568px,392px)}}
-@keyframes pulse-route{0%,100%{transform:translate(965px,177px)}50%{transform:translate(790px,177px)}}
-@keyframes pulse-decode{0%,100%{transform:translate(790px,335px)}50%{transform:translate(410px,245px)}}
+.method-svg .label{font-size:18px;font-weight:800}.method-svg .small{font-size:14px;font-weight:600;fill:var(--muted)}
+.method-svg .tiny{font-size:12px;font-weight:700;fill:var(--muted)}
+
+/* Flow paths and animation pulses */
+.input-stream-path{fill:none;stroke:#10b981;stroke-width:2.5;stroke-dasharray:6 4;opacity:.85;animation:dash-flow-up 1.2s linear infinite}
+.write-path{fill:none;stroke:#ea580c;stroke-width:2.8;stroke-dasharray:7 5;opacity:.85;animation:dash-flow 1.4s linear infinite;transition:all .3s}
+.query-path{fill:none;stroke:#7c3aed;stroke-width:2.8;stroke-dasharray:7 5;opacity:.85;animation:dash-flow 1.4s linear infinite;transition:all .3s}
+.kv-return-path{fill:none;stroke:#2563eb;stroke-width:3;stroke-dasharray:7 5;opacity:.85;animation:dash-flow-rev 1.4s linear infinite;transition:all .3s}
+
+.stream-particle{pointer-events:none}
+
+/* Two-Phase Cycle Mode (data-stage="cycle") - x_1..x_{t-1} then x_t */
+.method-visual[data-stage="cycle"] .write-path{animation:cycle-write-line 6s linear infinite, dash-flow 1.4s linear infinite}
+.method-visual[data-stage="cycle"] .query-path{animation:cycle-query-line 6s linear infinite, dash-flow 1.4s linear infinite}
+.method-visual[data-stage="cycle"] .kv-return-path{animation:cycle-kv-line 6s linear infinite, dash-flow-rev 1.4s linear infinite}
+.method-visual[data-stage="cycle"] .token-node-prev{animation:cycle-token-hist 6s linear infinite}
+.method-visual[data-stage="cycle"] .token-node-curr{animation:cycle-token-curr 6s linear infinite}
+.method-visual[data-stage="cycle"] .ht-node-prev{animation:cycle-token-hist 6s linear infinite}
+.method-visual[data-stage="cycle"] .ht-node-curr{animation:cycle-token-curr 6s linear infinite}
+.method-visual[data-stage="cycle"] .phase-txt-1{animation:cycle-phase1-fade 6s linear infinite}
+.method-visual[data-stage="cycle"] .phase-txt-2{animation:cycle-phase2-fade 6s linear infinite}
+.method-visual[data-stage="cycle"] .phase-dot-1{animation:cycle-phase1-fade 6s linear infinite}
+.method-visual[data-stage="cycle"] .phase-dot-2{animation:cycle-phase2-fade 6s linear infinite}
+.method-visual[data-stage="cycle"] .attn-box{animation:cycle-attn-box 6s linear infinite}
+.method-visual[data-stage="cycle"] .topk-gate{animation:cycle-topk-gate 6s linear infinite}
+
+/* Static Phase 1: Memory Construction (x_1 .. x_t-1) */
+.method-visual[data-stage="1"] .write-path{stroke:#ea580c;stroke-width:3.5;stroke-dasharray:8 6;opacity:1;animation:dash-flow .9s linear infinite}
+.method-visual[data-stage="1"] .query-path{opacity:.18}
+.method-visual[data-stage="1"] .kv-return-path{opacity:.18}
+.method-visual[data-stage="1"] .p-p2{opacity:0 !important}
+.method-visual[data-stage="1"] .phase-txt-1{opacity:1}
+.method-visual[data-stage="1"] .phase-txt-2{opacity:0}
+.method-visual[data-stage="1"] .phase-dot-1{opacity:1}
+.method-visual[data-stage="1"] .phase-dot-2{opacity:0}
+.method-visual[data-stage="1"] .token-node-prev{stroke:#ea580c;fill:#fff7ed;filter:drop-shadow(0 2px 6px rgba(234,88,12,.35))}
+.method-visual[data-stage="1"] .token-node-curr{opacity:.35}
+
+/* Static Phase 2: Retrieval & Decode (x_t) */
+.method-visual[data-stage="2"] .query-path{stroke:#7c3aed;stroke-width:3.5;stroke-dasharray:8 6;opacity:1;animation:dash-flow .9s linear infinite}
+.method-visual[data-stage="2"] .kv-return-path{stroke:#2563eb;stroke-width:3.8;stroke-dasharray:8 6;opacity:1;animation:dash-flow-rev .9s linear infinite}
+.method-visual[data-stage="2"] .write-path{opacity:.18}
+.method-visual[data-stage="2"] .p-p1{opacity:0 !important}
+.method-visual[data-stage="2"] .phase-txt-1{opacity:0}
+.method-visual[data-stage="2"] .phase-txt-2{opacity:1}
+.method-visual[data-stage="2"] .phase-dot-1{opacity:0}
+.method-visual[data-stage="2"] .phase-dot-2{opacity:1}
+.method-visual[data-stage="2"] .topk-gate{filter:drop-shadow(0 0 12px rgba(124,58,237,.5));stroke:#7c3aed;stroke-width:2.5}
+.method-visual[data-stage="2"] .attn-box{filter:drop-shadow(0 0 16px rgba(37,99,235,.4));stroke:#1d4ed8;stroke-width:3}
+.method-visual[data-stage="2"] .token-node-curr{stroke:#2563eb;fill:#eff6ff;filter:drop-shadow(0 2px 8px rgba(37,99,235,.4));opacity:1}
+.method-visual[data-stage="2"] .token-node-prev{opacity:.35}
+
+/* Full Pipeline Simultaneous (data-stage="all") */
+.method-visual[data-stage="all"] .input-stream-path{stroke:#10b981;stroke-width:3;opacity:1}
+.method-visual[data-stage="all"] .write-path{stroke:#ea580c;stroke-width:3;opacity:1}
+.method-visual[data-stage="all"] .query-path{stroke:#7c3aed;stroke-width:3;opacity:1}
+.method-visual[data-stage="all"] .kv-return-path{stroke:#2563eb;stroke-width:3.2;opacity:1}
+.method-visual[data-stage="all"] .attn-box{filter:drop-shadow(0 0 12px rgba(37,99,235,.28));border-color:#2563eb}
+.method-visual[data-stage="all"] .topk-gate{filter:drop-shadow(0 0 10px rgba(124,58,237,.35))}
+.method-visual[data-stage="all"] .kv-box{filter:drop-shadow(0 0 12px rgba(37,99,235,.28))}
+.method-visual[data-stage="all"] .phase-txt-1{opacity:0}
+.method-visual[data-stage="all"] .phase-txt-2{opacity:1}
+
+/* Dynamic pulse and breathing animations */
+.new-segment-pulse{animation:pulse-new-segment 2s ease-in-out infinite}
+.new-dot{animation:dot-blink 1.2s ease-in-out infinite alternate}
+.sim-bar-1{animation:sim-wave-1 1.6s ease-in-out infinite alternate}
+.sim-bar-2{animation:sim-wave-2 1.9s ease-in-out infinite alternate}
+.sim-bar-3{animation:sim-wave-3 1.4s ease-in-out infinite alternate}
+.sim-bar-4{animation:sim-wave-1 2.1s ease-in-out infinite alternate}
+
+.method-visual.is-paused *{animation-play-state:paused !important}
+
+@keyframes dash-flow{to{stroke-dashoffset:-28}}
+@keyframes dash-flow-up{to{stroke-dashoffset:-24}}
+@keyframes dash-flow-rev{to{stroke-dashoffset:28}}
+@keyframes pulse-new-segment{0%,100%{stroke:#fdba74;transform:scale(1)}50%{stroke:#ea580c;filter:drop-shadow(0 0 6px rgba(234,88,12,.5))}}
+@keyframes dot-blink{0%{opacity:.3;transform:scale(.8)}100%{opacity:1;transform:scale(1.2)}}
+@keyframes sim-wave-1{0%{height:20px;y:14px}100%{height:32px;y:2px}}
+@keyframes sim-wave-2{0%{height:34px;y:0px}100%{height:16px;y:18px}}
+@keyframes sim-wave-3{0%{height:12px;y:22px}100%{height:28px;y:6px}}
+
+@keyframes cycle-phase1-fade{0%,46%{opacity:1}52%,100%{opacity:0}}
+@keyframes cycle-phase2-fade{0%,46%{opacity:0}52%,96%{opacity:1}100%{opacity:0}}
+@keyframes cycle-write-line{0%,46%{stroke:#ea580c;opacity:1;stroke-width:3.4}52%,100%{stroke:#ea580c;opacity:.2;stroke-width:2.2}}
+@keyframes cycle-query-line{0%,46%{stroke:#7c3aed;opacity:.2;stroke-width:2.2}52%,96%{stroke:#7c3aed;opacity:1;stroke-width:3.4}100%{stroke:#7c3aed;opacity:.2;stroke-width:2.2}}
+@keyframes cycle-kv-line{0%,46%{stroke:#2563eb;opacity:.2;stroke-width:2.2}52%,96%{stroke:#2563eb;opacity:1;stroke-width:3.4}100%{stroke:#2563eb;opacity:.2;stroke-width:2.2}}
+@keyframes cycle-token-hist{0%,46%{stroke:#ea580c;fill:#fff7ed;filter:drop-shadow(0 2px 6px rgba(234,88,12,.35));opacity:1}52%,100%{stroke:#fdba74;fill:#fff;filter:none;opacity:.4}}
+@keyframes cycle-token-curr{0%,46%{stroke:#94a3b8;fill:#fff;filter:none;opacity:.4}52%,96%{stroke:#2563eb;fill:#eff6ff;filter:drop-shadow(0 2px 8px rgba(37,99,235,.4));opacity:1}100%{stroke:#94a3b8;fill:#fff;filter:none;opacity:.4}}
+@keyframes cycle-attn-box{0%,46%{filter:none;stroke:#2563eb}52%,96%{filter:drop-shadow(0 0 14px rgba(37,99,235,.4));stroke:#1d4ed8;stroke-width:3}100%{filter:none;stroke:#2563eb}}
+@keyframes cycle-topk-gate{0%,46%{filter:none;stroke:#7c3aed}52%,96%{filter:drop-shadow(0 0 12px rgba(124,58,237,.5));stroke:#7c3aed;stroke-width:2.8}100%{filter:none;stroke:#7c3aed}}
+
+.method-visual[data-stage="cycle"] ~ .method-controls .method-tab[data-stage="1"]{animation:cycle-tab1-btn 6s linear infinite}
+.method-visual[data-stage="cycle"] ~ .method-controls .method-tab[data-stage="2"]{animation:cycle-tab2-btn 6s linear infinite}
+
+@keyframes cycle-tab1-btn{0%,48%{background:#fff7ed;border-color:#ea580c;color:#c2410c}52%,100%{background:#fff;border-color:var(--line);color:var(--muted)}}
+@keyframes cycle-tab2-btn{0%,48%{background:#fff;border-color:var(--line);color:var(--muted)}52%,96%{background:#eff6ff;border-color:#2563eb;color:#1d4ed8}100%{background:#fff;border-color:var(--line);color:var(--muted)}}
+
 .method-controls{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:18px}
 .method-tabs{display:flex;gap:8px;flex-wrap:wrap}
-.method-tab{min-height:40px;padding:8px 14px;border:1px solid var(--line);border-radius:6px;background:#fff;font:inherit;font-size:.82rem;font-weight:800;color:var(--muted);cursor:pointer}
+.method-tab{min-height:40px;padding:8px 18px;border:1px solid var(--line);border-radius:6px;background:#fff;font:inherit;font-size:.86rem;font-weight:800;color:var(--muted);cursor:pointer;transition:all .2s ease}
+.method-tab:hover{border-color:#b5c4df;color:var(--ink2)}
 .method-tab[aria-pressed="true"]{background:#edf2ff;border-color:#9eb2fa;color:var(--blue)}
+.method-tab.tab-arch{border-color:#d4ddec;background:#f8faff}
+.method-tab.tab-arch:hover{background:#edf2ff;color:var(--blue)}
 .method-caption{min-height:48px;margin:14px 0 0;padding:12px 16px;border-left:3px solid var(--blue);background:#fff;color:var(--muted);font-size:.9rem}
 
-.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin:32px 0 54px}
-.step{padding:24px 22px;border:1px solid var(--line);border-radius:var(--radius);background:#fff}
-.step .k{display:block;margin-bottom:8px;font-size:.7rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--blue)}
-.step h4{margin:0 0 8px;font-size:1.05rem;font-weight:800}
-.step p{margin:0;font-size:.9rem;color:var(--muted)}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin:28px 0 54px}
+.step{padding:28px 26px;border:1px solid var(--line);border-radius:var(--radius);background:#fff;box-shadow:var(--shadow-soft)}
+.step .k{display:block;margin-bottom:10px;font-size:.88rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--blue)}
+.step h4{margin:0 0 10px;font-size:1.25rem;font-weight:800;color:var(--ink)}
+.step p{margin:0;font-size:.98rem;line-height:1.65;color:var(--muted)}
 
 /* Features Cards */
 .features-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
@@ -130,7 +213,7 @@ img{display:block;max-width:100%}
 .c-teal .ico{background:#d9f0ee;color:#0e8f88}
 .c-sand .ico{background:#fbf1cf;color:#a1740a}
 
-/* ---------- Performance 表格与解读 ---------- */
+/* ---------- Performance Tables and Analysis ---------- */
 .table-card{margin-bottom:34px;padding:26px;border:1px solid var(--line);border-radius:var(--radius);background:#fff;box-shadow:var(--shadow-soft)}
 .table-card h3{margin:0 0 6px;font-size:1.22rem;font-weight:800}
 .table-card p.desc{margin:0 0 18px;font-size:.88rem;color:var(--muted)}
@@ -149,7 +232,7 @@ table.data-table tr.highlight td{border-bottom:2px solid var(--blue)}
 .finding p{margin:0;font-size:.92rem;color:var(--muted)}
 .finding p b{color:var(--blue)}
 
-/* ---------- Scalability 样式 ---------- */
+/* ---------- Scalability Styles ---------- */
 .scalability-box{padding:24px;border:1px solid var(--line);border-radius:var(--radius);background:#fff;box-shadow:var(--shadow-soft);margin-bottom:30px}
 .scalability-box img{width:100%;border-radius:6px;cursor:zoom-in}
 .metrics-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
@@ -192,7 +275,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:34px 0}
 </head>
 <body>
 
-<!-- 导航栏：精准对齐顶部三大核心板块 -->
+<!-- Navigation Bar -->
 <nav class="navbar" aria-label="Main navigation">
  <div class="nav-inner">
   <a href="#top" class="brand">
@@ -218,10 +301,13 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:34px 0}
  </div>
 </nav>
 
-<!-- 首屏 Hero -->
+<!-- Hero Section -->
 <header class="hero" id="top">
  <div class="hero-content">
-  <h1 class="hero-title">Mem<span class="ac">Once</span></h1>
+  <div class="hero-logo-box">
+    <img src="assets/icon.png" alt="MemOnce: A Scalable Memory Architecture for Large Language Models" class="hero-logo-img">
+    <h1 class="sr-only">MemOnce: A Scalable Memory Architecture for Large Language Models</h1>
+  </div>
   <p class="hero-subtitle">A Scalable Memory Architecture for Large Language Models</p>
   <div class="authors"><span>Chang Nie<sup>1</sup></span><span>Chaoyou Fu<sup>1</sup></span><span>Songlin Liu<sup>2</sup></span><span>Yiqing Hu<sup>2</sup></span><span>Caifeng Shan<sup>1</sup></span></div>
   <div class="affiliation"><span><sup>1</sup> Nanjing University</span><span><sup>2</sup> University of Science and Technology of China</span></div>
@@ -258,111 +344,364 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:34px 0}
    <p class="section-subtitle">An L-stage hybrid backbone interleaves three linear blocks (e.g., GDN) with one Memory Sparse Attention block.</p>
   </div>
 
-  <!-- 动态交互架构图 -->
-  <div class="method-visual rv" id="methodVisual" data-stage="1">
-   <svg class="method-svg" viewBox="0 0 1200 540" role="img">
+  <!-- Architecture Workflow SVG Diagram -->
+  <div class="method-visual rv" id="methodVisual" data-stage="cycle">
+   <!-- Interactive SVG Architecture -->
+   <svg class="method-svg" id="methodSvg" viewBox="0 -30 1200 710" role="img" aria-label="MemOnce Architecture Workflow">
     <defs>
-     <marker id="arr-blue" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9Z" fill="#1b42e0"/></marker>
-     <marker id="arr-violet" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9Z" fill="#7b3fe4"/></marker>
-     <marker id="arr-teal" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9Z" fill="#158b83"/></marker>
+     <marker id="arr-black" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 1L7 4L0 7Z" fill="#1e293b"/></marker>
+     <marker id="arr-blue" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 1L7 4L0 7Z" fill="#2563eb"/></marker>
+     <marker id="arr-violet" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 1L7 4L0 7Z" fill="#7c3aed"/></marker>
+     <marker id="arr-teal" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 1L7 4L0 7Z" fill="#158b83"/></marker>
+     <marker id="arr-orange" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 1L7 4L0 7Z" fill="#ea580c"/></marker>
+     <marker id="arr-green" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 1L7 4L0 7Z" fill="#10b981"/></marker>
+     <filter id="glow-green" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#10b981" flood-opacity="0.8"/></filter>
+     <filter id="glow-orange" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#ea580c" flood-opacity="0.8"/></filter>
+     <filter id="glow-violet" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#8b5cf6" flood-opacity="0.8"/></filter>
+     <filter id="glow-blue" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#2563eb" flood-opacity="0.8"/></filter>
     </defs>
-    <rect x="36" y="54" width="420" height="432" rx="8" class="backbone"/>
-    <text x="60" y="88" class="label">Hybrid backbone</text>
-    <text x="420" y="88" class="tiny" text-anchor="end">× L stages</text>
-    <rect x="78" y="125" width="336" height="58" rx="6" class="node"/>
-    <text x="246" y="160" class="small" text-anchor="middle">Linear blocks × 3 (GDN)</text>
-    <rect x="78" y="205" width="336" height="74" rx="6" class="attn"/>
-    <text x="246" y="237" class="label" text-anchor="middle">Memory Sparse Attention</text>
-    <text x="246" y="260" class="tiny" text-anchor="middle">shares the same retrieved memory</text>
-    <rect x="78" y="301" width="336" height="58" rx="6" class="node"/>
-    <text x="246" y="336" class="small" text-anchor="middle">Linear blocks × 3</text>
-    <rect x="78" y="381" width="336" height="74" rx="6" class="attn"/>
-    <text x="246" y="413" class="label" text-anchor="middle">Memory Sparse Attention</text>
-    <text x="246" y="436" class="tiny" text-anchor="middle">same indices, no re-retrieval</text>
-    <path d="M246 381V360M246 301V282M246 205V186M246 125V104" fill="none" stroke="#8490aa" stroke-width="2" marker-end="url(#arr-blue)"/>
-    <rect x="75" y="20" width="342" height="48" rx="6" class="node"/>
-    <text x="246" y="50" class="small" text-anchor="middle">Current continual query</text>
 
-    <rect x="520" y="54" width="642" height="432" rx="8" fill="#fcfcfe" stroke="#d9dfec" stroke-width="2"/>
-    <text x="546" y="88" class="label">One persistent memory path</text>
-    <text x="1138" y="88" class="tiny" text-anchor="end">Decoupled Depth &amp; Time</text>
+    <!-- Phase Indicator Pill -->
+    <g transform="translate(540, 24)" class="phase-pill">
+      <rect x="0" y="0" width="410" height="32" rx="16" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5"/>
+      <circle cx="18" cy="16" r="5.5" class="phase-dot-1" fill="#ea580c"/>
+      <circle cx="18" cy="16" r="5.5" class="phase-dot-2" fill="#2563eb"/>
+      <text x="34" y="21" font-size="13" font-weight="800" class="phase-txt-1" fill="#c2410c">Phase 1 · Memory Write (Cache Once: x₁ ... x_{t-1})</text>
+      <text x="34" y="21" font-size="13" font-weight="800" class="phase-txt-2" fill="#1d4ed8">Phase 2 · Memory Read (Retrieve &amp; Decode: x_t)</text>
+    </g>
 
-    <rect x="560" y="125" width="190" height="104" rx="6" class="memory write-node"/>
-    <text x="655" y="157" class="small" text-anchor="middle">Persistent Memory Bank</text>
-    <rect x="582" y="174" width="146" height="12" rx="3" fill="#e2c6a6"/>
-    <rect x="582" y="194" width="146" height="12" rx="3" fill="#e2c6a6"/>
-    <text x="655" y="219" class="tiny" text-anchor="middle">1/r final-layer states</text>
-    <rect x="560" y="274" width="190" height="72" rx="6" class="node write-node"/>
-    <text x="655" y="303" class="small" text-anchor="middle">Past segments</text>
-    <text x="655" y="326" class="tiny" text-anchor="middle">encoded once in parallel</text>
-    <path d="M655 274V238" class="write-path" marker-end="url(#arr-blue)"/>
-    <path d="M414 418H490V310H552" class="write-path" marker-end="url(#arr-blue)"/>
-    <circle cx="0" cy="0" r="7" fill="#1b42e0" class="pulse pulse-write"/>
+    <!-- ================= Left: Hybrid Backbone (× L) ================= -->
+    <rect x="52" y="72" width="450" height="544" rx="14" fill="#fcfdff" stroke="#cbd5e1" stroke-width="2"/>
+    <text x="76" y="104" font-size="20" font-weight="800" fill="#0f172a">Hybrid Backbone</text>
+    
+    <!-- Left × L Indicator -->
+    <path d="M 38 126 H 28 V 592 H 38" fill="none" stroke="#64748b" stroke-width="2"/>
+    <text x="18" y="364" font-size="17" font-weight="800" fill="#334155" text-anchor="middle">× L</text>
 
-    <rect x="800" y="125" width="174" height="104" rx="6" class="node route-node"/>
-    <text x="887" y="157" class="small" text-anchor="middle">Single-shot top-K Search</text>
-    <text x="887" y="183" class="tiny" text-anchor="middle">one cosine pass per query</text>
-    <text x="887" y="207" class="tiny" text-anchor="middle">K=64 chunks</text>
-    <path d="M750 176H790" class="route" marker-end="url(#arr-violet)"/>
-    <path d="M417 44H776V142H792" class="route" marker-end="url(#arr-violet)"/>
-    <circle cx="0" cy="0" r="7" fill="#7b3fe4" class="pulse pulse-route"/>
+    <!-- Upper × 1 Block (Memory Sparse Attention + FFN) -->
+    <rect x="76" y="122" width="402" height="182" rx="10" fill="#ffffff" stroke="#94a3b8" stroke-width="1.8"/>
+    <text x="60" y="218" font-size="16" font-weight="800" fill="#475569" text-anchor="end">× 1</text>
+    
+    <!-- Upper FFN -->
+    <rect x="98" y="138" width="358" height="48" rx="8" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.8"/>
+    <text x="277" y="168" font-size="17" font-weight="700" text-anchor="middle" fill="#1e293b">FFN</text>
 
-    <rect x="800" y="274" width="174" height="72" rx="6" class="node decode-node"/>
-    <text x="887" y="303" class="small" text-anchor="middle">Active Memory M<sub>t</sub></text>
-    <text x="887" y="326" class="tiny" text-anchor="middle">top-K + local window (25MB)</text>
-    <path d="M887 229V265" class="route" marker-end="url(#arr-violet)"/>
-    <rect x="1010" y="274" width="124" height="72" rx="6" class="node decode-node"/>
-    <text x="1072" y="303" class="small" text-anchor="middle">Layer-wise KV</text>
-    <text x="1072" y="326" class="tiny" text-anchor="middle">decode on demand</text>
-    <path d="M974 310H1000" class="decode-path" marker-end="url(#arr-teal)"/>
-    <path d="M1010 310H490V242H422" class="decode-path" marker-end="url(#arr-teal)"/>
-    <circle cx="0" cy="0" r="7" fill="#158b83" class="pulse pulse-decode"/>
-    <text x="600" y="454" class="small">Persistent bank scales off-device on SSD / CPU.</text>
-    <text x="600" y="477" class="tiny">Active GPU cache stays bounded by constant budget O(CD).</text>
+    <!-- Memory Sparse Attention -->
+    <rect x="98" y="208" width="358" height="82" rx="8" class="attn-box" fill="#eff6ff" stroke="#2563eb" stroke-width="2.5"/>
+    <text x="277" y="256" font-size="20" font-weight="800" text-anchor="middle" fill="#1d4ed8">Memory Sparse Attention</text>
+
+    <!-- Upper Internal Arrow -->
+    <path d="M 277 208 V 192" stroke="#0f172a" stroke-width="2" marker-end="url(#arr-black)"/>
+
+    <!-- Lower × 3 Block (Linear Block e.g. GDN + FFN) -->
+    <rect x="76" y="322" width="402" height="276" rx="10" fill="#ffffff" stroke="#94a3b8" stroke-width="1.8" stroke-dasharray="6 4"/>
+    <text x="60" y="466" font-size="16" font-weight="800" fill="#475569" text-anchor="end">× 3</text>
+
+    <!-- Lower FFN -->
+    <rect x="98" y="342" width="358" height="66" rx="8" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.8"/>
+    <text x="277" y="382" font-size="18" font-weight="700" text-anchor="middle" fill="#1e293b">FFN</text>
+
+    <!-- Linear Block (e.g., GDN) -->
+    <rect x="98" y="474" width="358" height="106" rx="8" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.8"/>
+    <text x="277" y="522" font-size="19" font-weight="700" text-anchor="middle" fill="#1e293b">Linear Block</text>
+    <text x="277" y="550" font-size="15" font-weight="600" text-anchor="middle" fill="#64748b">(e.g., GDN)</text>
+
+    <!-- Lower Internal Arrows -->
+    <path d="M 277 474 V 414" stroke="#0f172a" stroke-width="2" marker-end="url(#arr-black)"/>
+    <path d="M 277 342 V 296" stroke="#0f172a" stroke-width="2" marker-end="url(#arr-black)"/>
+
+    <!-- Bottom: Continual Inputs (x1, x2, ... x_{t-1}, x_t) -->
+    <g transform="translate(86, 626)">
+      <!-- History tokens: x1, x2, ... x_{t-1} for Phase 1 -->
+      <g class="token-hist">
+        <rect x="0" y="0" width="34" height="34" rx="6" fill="#fff" stroke="#cbd5e1" stroke-dasharray="3 3"/>
+        <text x="17" y="22" font-size="14" font-weight="600" text-anchor="middle" fill="#64748b">x<tspan font-size="10" dy="4">1</tspan></text>
+        
+        <rect x="40" y="0" width="34" height="34" rx="6" fill="#fff" stroke="#cbd5e1" stroke-dasharray="3 3"/>
+        <text x="57" y="22" font-size="14" font-weight="600" text-anchor="middle" fill="#64748b">x<tspan font-size="10" dy="4">2</tspan></text>
+        
+        <text x="90" y="21" font-size="16" font-weight="700" fill="#94a3b8">···</text>
+        
+        <rect x="110" y="0" width="48" height="34" rx="6" class="token-node-prev" fill="#fff7ed" stroke="#ea580c" stroke-width="1.8"/>
+        <text x="134" y="22" font-size="13" font-weight="700" text-anchor="middle" fill="#9a3412">x<tspan font-size="9" dy="4">t-1</tspan></text>
+      </g>
+
+      <!-- Current token: x_t for Phase 2 -->
+      <g class="token-curr" transform="translate(166, 0)">
+        <rect x="0" y="0" width="46" height="34" rx="6" class="token-node-curr" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+        <text x="23" y="22" font-size="15" font-weight="800" text-anchor="middle" fill="#1d4ed8">x<tspan font-size="11" dy="4">t</tspan></text>
+      </g>
+      
+      <text x="228" y="22" font-size="16" font-weight="800" fill="#0f172a">Continual Inputs</text>
+    </g>
+    <!-- Upward arrow into Linear Block -->
+    <path d="M 254 626 V 586" stroke="#0f172a" stroke-width="2" marker-end="url(#arr-black)"/>
+
+    <!-- Top Outputs: h_1^L, h_2^L, ... h_{t-1}^L, h_t^L -->
+    <g transform="translate(86, 44)">
+      <g class="ht-hist">
+        <rect x="0" y="0" width="38" height="32" rx="6" fill="#fff" stroke="#cbd5e1" stroke-dasharray="3 3"/>
+        <text x="19" y="20" font-size="13" font-weight="600" text-anchor="middle" fill="#64748b">h<tspan font-size="9" dy="-5">L</tspan><tspan font-size="9" dy="9">1</tspan></text>
+        
+        <rect x="44" y="0" width="38" height="32" rx="6" fill="#fff" stroke="#cbd5e1" stroke-dasharray="3 3"/>
+        <text x="63" y="20" font-size="13" font-weight="600" text-anchor="middle" fill="#64748b">h<tspan font-size="9" dy="-5">L</tspan><tspan font-size="9" dy="9">2</tspan></text>
+        
+        <text x="96" y="20" font-size="16" font-weight="700" fill="#94a3b8">···</text>
+        
+        <rect x="116" y="0" width="48" height="32" rx="6" class="ht-node-prev" fill="#fff7ed" stroke="#ea580c" stroke-width="1.8"/>
+        <text x="140" y="20" font-size="12" font-weight="700" text-anchor="middle" fill="#9a3412">h<tspan font-size="9" dy="-5">L</tspan><tspan font-size="8" dy="9">t-1</tspan></text>
+      </g>
+      
+      <g class="ht-curr" transform="translate(172, 0)">
+        <rect x="0" y="0" width="46" height="32" rx="6" class="ht-node-curr" fill="#eff6ff" stroke="#2563eb" stroke-width="2"/>
+        <text x="23" y="20" font-size="14" font-weight="800" text-anchor="middle" fill="#1d4ed8">h<tspan font-size="10" dy="-5">L</tspan><tspan font-size="10" dy="9">t</tspan></text>
+      </g>
+    </g>
+    <!-- Arrow from Upper FFN to ht^L -->
+    <path d="M 277 138 V 82" stroke="#0f172a" stroke-width="2" marker-end="url(#arr-black)"/>
+
+    <!-- LM Head and Prediction token y_t -->
+    <rect x="206" y="3" width="102" height="30" rx="6" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.8"/>
+    <text x="257" y="23" font-size="14" font-weight="700" text-anchor="middle" fill="#1e293b">LM head</text>
+    <path d="M 257 44 V 38" stroke="#0f172a" stroke-width="2" marker-end="url(#arr-black)"/>
+    <path d="M 257 3 V -10" stroke="#0f172a" stroke-width="2"/>
+    <text x="257" y="-14" font-size="16" font-weight="800" text-anchor="middle" fill="#0f172a">y<tspan font-size="11" dy="4">t</tspan></text>
+
+    <!-- ================= Right: Memory Encoder-Decoder ================= -->
+    <rect x="532" y="72" width="628" height="544" rx="14" fill="#fcfdff" stroke="#cbd5e1" stroke-width="2"/>
+    <text x="556" y="104" font-size="20" font-weight="800" fill="#0f172a">Memory Encoder-Decoder</text>
+
+    <!-- Top: History Segments (1, 2, ... N) -->
+    <g transform="translate(584, 118)">
+      <rect x="0" y="0" width="28" height="26" rx="4" fill="#fff" stroke="#cbd5e1" stroke-dasharray="3 3"/>
+      <text x="14" y="17" font-size="12" font-weight="600" text-anchor="middle" fill="#64748b">1</text>
+      
+      <rect x="36" y="0" width="28" height="26" rx="4" fill="#fff" stroke="#cbd5e1" stroke-dasharray="3 3"/>
+      <text x="50" y="17" font-size="12" font-weight="600" text-anchor="middle" fill="#64748b">2</text>
+      
+      <rect x="74" y="0" width="30" height="26" rx="4" fill="#ffedd5" stroke="#fdba74"/>
+      <rect x="112" y="0" width="30" height="26" rx="4" fill="#ffedd5" stroke="#fdba74"/>
+      <rect x="150" y="0" width="30" height="26" rx="4" fill="#fff" stroke="#cbd5e1" stroke-dasharray="3 3"/>
+      <rect x="188" y="0" width="30" height="26" rx="4" fill="#fff" stroke="#cbd5e1" stroke-dasharray="3 3"/>
+      <rect x="226" y="0" width="30" height="26" rx="4" fill="#ffedd5" stroke="#fdba74"/>
+      <text x="272" y="17" font-size="15" font-weight="700" fill="#94a3b8">···</text>
+      <rect x="296" y="0" width="32" height="26" rx="4" class="new-segment-pulse" fill="#ffedd5" stroke="#ea580c" stroke-width="2"/>
+      <text x="312" y="17" font-size="12" font-weight="800" text-anchor="middle" fill="#9a3412">N</text>
+    </g>
+
+    <!-- Memory Cache Badge -->
+    <g transform="translate(934, 118)">
+      <rect x="0" y="0" width="150" height="26" rx="13" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5"/>
+      <circle cx="13" cy="13" r="4.5" fill="#ea580c" class="new-dot"/>
+      <text x="24" y="17" font-size="11.5" font-weight="800" fill="#c2410c">+ Cached into G<tspan font-size="8.5" dy="2">t</tspan> (1/r)</text>
+    </g>
+
+    <!-- Downward Arrow into Memory Store -->
+    <path d="M 768 148 V 170" stroke="#0f172a" stroke-width="2" marker-end="url(#arr-black)"/>
+
+    <!-- Long-term & Short-term Memory Units -->
+    <text x="674" y="188" font-size="16" font-weight="700" text-anchor="middle" fill="#0f172a">Long-term</text>
+    <g transform="translate(566, 198)">
+      <rect x="0" y="0" width="38" height="34" rx="6" class="segment-node" fill="#ffedd5" stroke="#f97316" stroke-width="1.8"/>
+      <text x="19" y="22" font-size="13" font-weight="700" text-anchor="middle" fill="#9a3412">m<tspan font-size="9" dy="4">1</tspan></text>
+
+      <rect x="46" y="0" width="38" height="34" rx="6" class="segment-node" fill="#ffedd5" stroke="#f97316" stroke-width="1.8"/>
+      <text x="65" y="22" font-size="13" font-weight="700" text-anchor="middle" fill="#9a3412">m<tspan font-size="9" dy="4">2</tspan></text>
+
+      <rect x="92" y="0" width="38" height="34" rx="6" class="segment-node" fill="#ffedd5" stroke="#f97316" stroke-width="1.8"/>
+      <text x="111" y="22" font-size="13" font-weight="700" text-anchor="middle" fill="#9a3412">m<tspan font-size="9" dy="4">3</tspan></text>
+
+      <text x="146" y="21" font-size="15" font-weight="700" fill="#94a3b8">···</text>
+
+      <rect x="170" y="0" width="38" height="34" rx="6" class="segment-node" fill="#ffedd5" stroke="#f97316" stroke-width="1.8"/>
+      <text x="189" y="22" font-size="13" font-weight="700" text-anchor="middle" fill="#9a3412">m<tspan font-size="9" dy="4">s</tspan></text>
+    </g>
+
+    <!-- Short-term Units -->
+    <text x="888" y="188" font-size="16" font-weight="700" text-anchor="middle" fill="#0f172a">Short-term</text>
+    <g transform="translate(830, 198)">
+      <rect x="0" y="0" width="46" height="34" rx="6" class="segment-node" fill="#ffedd5" stroke="#f97316" stroke-width="1.8"/>
+      <text x="23" y="22" font-size="12" font-weight="700" text-anchor="middle" fill="#9a3412">m<tspan font-size="9" dy="4">s+1</tspan></text>
+
+      <text x="62" y="21" font-size="15" font-weight="700" fill="#94a3b8">···</text>
+
+      <rect x="80" y="0" width="42" height="34" rx="6" class="segment-node new-segment-pulse" fill="#ffedd5" stroke="#ea580c" stroke-width="2"/>
+      <text x="101" y="22" font-size="13" font-weight="800" text-anchor="middle" fill="#9a3412">m<tspan font-size="9" dy="4">k</tspan></text>
+    </g>
+    <text x="898" y="254" font-size="13" font-weight="700" text-anchor="middle" fill="#475569">k = ⌊<tspan dy="-3" font-size="10">N</tspan><tspan dy="3">/r</tspan>⌋</text>
+
+    <!-- Top-K Similarity Histogram -->
+    <g transform="translate(615, 274)">
+      <rect x="0" y="10" width="10" height="24" rx="2" class="sim-bar sim-bar-1" fill="#93c5fd"/>
+      <rect x="14" y="20" width="10" height="14" rx="2" class="sim-bar sim-bar-2" fill="#93c5fd"/>
+      <rect x="28" y="0" width="10" height="34" rx="2" class="sim-bar sim-bar-3" fill="#3b82f6"/>
+      <rect x="42" y="14" width="10" height="20" rx="2" class="sim-bar sim-bar-4" fill="#93c5fd"/>
+    </g>
+
+    <!-- Fan-in lines to Top-K Sim Gate -->
+    <path d="M 585 234 C 585 292, 735 290, 746 332" fill="none" stroke="#94a3b8" stroke-dasharray="3 3"/>
+    <path d="M 631 234 C 631 285, 738 290, 746 332" fill="none" stroke="#94a3b8" stroke-dasharray="3 3"/>
+    <path d="M 677 234 C 677 280, 742 290, 746 332" fill="none" stroke="#94a3b8" stroke-dasharray="3 3"/>
+    <path d="M 755 234 C 755 275, 748 295, 746 332" fill="none" stroke="#94a3b8" stroke-dasharray="3 3"/>
+    <path d="M 853 234 C 853 280, 755 295, 746 332" fill="none" stroke="#94a3b8" stroke-dasharray="3 3"/>
+
+    <!-- Top-K Sim Gate (⊗) -->
+    <circle cx="746" cy="346" r="14" class="topk-gate" fill="#ffffff" stroke="#7c3aed" stroke-width="2.2"/>
+    <path d="M 738 338 L 754 354 M 754 338 L 738 354" stroke="#7c3aed" stroke-width="2.2"/>
+    <text x="734" y="375" font-size="12" font-weight="700" text-anchor="end" fill="#0f172a">Top-K Sim(φ(h<tspan font-size="9" dy="-3">L</tspan><tspan font-size="9" dy="6">t</tspan>), φ(m<tspan font-size="9" dy="3">i</tspan>))</text>
+
+    <!-- Gate Output -> Memory Rep. -->
+    <path d="M 746 360 V 398" stroke="#0f172a" stroke-width="2" marker-end="url(#arr-black)"/>
+    <g transform="translate(636, 404)">
+      <rect x="0" y="0" width="30" height="28" rx="5" class="mem-rep" fill="#fb923c" stroke="#ea580c" stroke-width="1.8"/>
+      <rect x="38" y="0" width="30" height="28" rx="5" class="mem-rep" fill="#fb923c" stroke="#ea580c" stroke-width="1.8"/>
+      <rect x="76" y="0" width="30" height="28" rx="5" class="mem-rep" fill="#fb923c" stroke="#ea580c" stroke-width="1.8"/>
+      <text x="120" y="19" font-size="16" font-weight="700" fill="#94a3b8">···</text>
+      <rect x="144" y="0" width="30" height="28" rx="5" class="mem-rep" fill="#fb923c" stroke="#ea580c" stroke-width="1.8"/>
+      <text x="194" y="20" font-size="16" font-weight="700" fill="#0f172a">Memory Rep.</text>
+    </g>
+
+    <!-- Projections: K_Proj^l and V_Proj^l -->
+    <path d="M 680 432 V 460" stroke="#0f172a" stroke-width="2" marker-end="url(#arr-black)"/>
+    <text x="696" y="450" font-size="13" font-weight="700" fill="#0f172a">K<tspan font-size="9" dy="-3">l</tspan><tspan font-size="9" dy="5">Proj</tspan></text>
+    
+    <!-- 3D Grid (Kl) -->
+    <g transform="translate(632, 464)">
+      <rect x="4" y="4" width="48" height="42" rx="4" fill="#fef9c3" stroke="#eab308" stroke-width="1.5" opacity="0.6"/>
+      <rect x="2" y="2" width="48" height="42" rx="4" fill="#fef08a" stroke="#eab308" stroke-width="1.5" opacity="0.8"/>
+      <rect x="0" y="0" width="48" height="42" rx="4" fill="#fef08a" stroke="#ca8a04" stroke-width="1.8"/>
+      <line x1="16" y1="0" x2="16" y2="42" stroke="#eab308" stroke-width="1"/>
+      <line x1="32" y1="0" x2="32" y2="42" stroke="#eab308" stroke-width="1"/>
+      <line x1="0" y1="14" x2="48" y2="14" stroke="#eab308" stroke-width="1"/>
+      <line x1="0" y1="28" x2="48" y2="28" stroke="#eab308" stroke-width="1"/>
+      <text x="58" y="26" font-size="15" font-weight="700" fill="#0f172a">K<tspan font-size="10" dy="-3">l</tspan></text>
+    </g>
+
+    <!-- V Projection -->
+    <path d="M 790 432 V 460" stroke="#0f172a" stroke-width="2" marker-end="url(#arr-black)"/>
+    <text x="806" y="450" font-size="13" font-weight="700" fill="#0f172a">V<tspan font-size="9" dy="-3">l</tspan><tspan font-size="9" dy="5">Proj</tspan></text>
+
+    <!-- 3D Grid (Vl) -->
+    <g transform="translate(760, 464)">
+      <rect x="4" y="4" width="48" height="42" rx="4" fill="#dcfce7" stroke="#22c55e" stroke-width="1.5" opacity="0.6"/>
+      <rect x="2" y="2" width="48" height="42" rx="4" fill="#bbf7d0" stroke="#22c55e" stroke-width="1.5" opacity="0.8"/>
+      <rect x="0" y="0" width="48" height="42" rx="4" fill="#bbf7d0" stroke="#16a34a" stroke-width="1.8"/>
+      <line x1="16" y1="0" x2="16" y2="42" stroke="#22c55e" stroke-width="1"/>
+      <line x1="32" y1="0" x2="32" y2="42" stroke="#22c55e" stroke-width="1"/>
+      <line x1="0" y1="14" x2="48" y2="14" stroke="#22c55e" stroke-width="1"/>
+      <line x1="0" y1="28" x2="48" y2="28" stroke="#22c55e" stroke-width="1"/>
+      <text x="58" y="26" font-size="15" font-weight="700" fill="#0f172a">V<tspan font-size="10" dy="-3">l</tspan></text>
+    </g>
+
+    <text x="856" y="492" font-size="15" font-weight="700" fill="#334155">l = 1, ··· , L</text>
+
+    <!-- Feed into KV Cache -->
+    <path d="M 660 510 V 542" stroke="#0f172a" stroke-width="2" marker-end="url(#arr-black)"/>
+    <path d="M 786 510 V 542" stroke="#0f172a" stroke-width="2" marker-end="url(#arr-black)"/>
+
+    <!-- KV Cache Box -->
+    <rect x="648" y="542" width="166" height="46" rx="8" class="kv-box" fill="#eff6ff" stroke="#2563eb" stroke-width="2.5"/>
+    <text x="731" y="572" font-size="20" font-weight="800" text-anchor="middle" fill="#1d4ed8">KV Cache</text>
+
+    <!-- ================= Non-Overlapping Inter-Module Corridors ================= -->
+    <!-- Write Path (Phase 1): High top arch to Segment Bank, avoiding lower routes -->
+    <path id="path-write" d="M 284 54 C 420 8, 620 8, 768 114" class="write-path" marker-end="url(#arr-orange)"/>
+
+    <!-- Query Path (Phase 2): Strictly along vertical track x=532 down to ⊗ Top-K Gate -->
+    <path id="path-query" d="M 284 66 H 532 V 346 H 732" class="query-path" marker-end="url(#arr-violet)"/>
+
+    <!-- KV Return Path (Phase 2): Strictly along vertical track x=504 up to Memory Sparse Attention -->
+    <!-- 28px physical separation between x=504 and x=532 guarantees zero overlap -->
+    <path id="path-kv-return" d="M 648 565 H 504 V 249 H 462" class="kv-return-path" marker-end="url(#arr-blue)"/>
+
+    <!-- Upward Backbone Guides -->
+    <path d="M 230 626 V 586" class="input-stream-path"/>
+    <path d="M 254 626 V 586" class="input-stream-path"/>
+    <path d="M 277 586 V 474 M 277 474 V 414 M 277 342 V 296 M 277 208 V 192 M 277 138 V 82" class="input-stream-path"/>
+
+    <!-- ================= Two-Phase Cycling Particles (6.0s Total Period) ================= -->
+    <!-- PHASE 1 (0.0s - 3.0s): Tokens x_1 ... x_{t-1} memory construction -->
+    <!-- 1. Input stream from x_1..x_{t-1} up into backbone -->
+    <circle r="5" fill="#ea580c" filter="url(#glow-orange)" class="stream-particle p-p1">
+      <animateMotion dur="6.0s" repeatCount="indefinite" path="M 230 626 V 580 H 250 V 76" keyTimes="0; 0.28; 1" keyPoints="0; 1; 1"/>
+      <animate attributeName="opacity" dur="6.0s" repeatCount="indefinite" values="0; 1; 1; 0; 0" keyTimes="0; 0.05; 0.26; 0.30; 1"/>
+    </circle>
+    <!-- 2. Write path into segment bank (Write Once) -->
+    <circle r="5.5" fill="#ea580c" filter="url(#glow-orange)" class="stream-particle p-p1">
+      <animateMotion dur="6.0s" repeatCount="indefinite" path="M 284 54 C 420 8, 620 8, 768 114" keyTimes="0; 0.20; 0.48; 1" keyPoints="0; 0; 1; 1"/>
+      <animate attributeName="opacity" dur="6.0s" repeatCount="indefinite" values="0; 0; 1; 1; 0; 0" keyTimes="0; 0.20; 0.24; 0.46; 0.50; 1"/>
+    </circle>
+
+    <!-- PHASE 2 (3.0s - 6.0s): Current token x_t retrieval & on-demand decode -->
+    <!-- 3. Current token x_t pass up to h_t^L -->
+    <circle r="5" fill="#2563eb" filter="url(#glow-blue)" class="stream-particle p-p2">
+      <animateMotion dur="6.0s" repeatCount="indefinite" path="M 254 626 V 580 H 277 V 76" keyTimes="0; 0.50; 0.70; 1" keyPoints="0; 0; 1; 1"/>
+      <animate attributeName="opacity" dur="6.0s" repeatCount="indefinite" values="0; 0; 1; 1; 0; 0" keyTimes="0; 0.50; 0.53; 0.68; 0.72; 1"/>
+    </circle>
+    <!-- 4. Query retrieval via track x=532 into ⊗ Top-K Gate -->
+    <circle r="5.5" fill="#8b5cf6" filter="url(#glow-violet)" class="stream-particle p-p2">
+      <animateMotion dur="6.0s" repeatCount="indefinite" path="M 284 66 H 532 V 346 H 732" keyTimes="0; 0.62; 0.82; 1" keyPoints="0; 0; 1; 1"/>
+      <animate attributeName="opacity" dur="6.0s" repeatCount="indefinite" values="0; 0; 1; 1; 0; 0" keyTimes="0; 0.62; 0.65; 0.80; 0.84; 1"/>
+    </circle>
+    <!-- 5. On-demand KV Cache return via track x=504 to Attention -->
+    <circle r="5.5" fill="#2563eb" filter="url(#glow-blue)" class="stream-particle p-p2">
+      <animateMotion dur="6.0s" repeatCount="indefinite" path="M 648 565 H 504 V 249 H 462" keyTimes="0; 0.78; 0.98; 1" keyPoints="0; 0; 1; 1"/>
+      <animate attributeName="opacity" dur="6.0s" repeatCount="indefinite" values="0; 0; 1; 1; 0; 0" keyTimes="0; 0.78; 0.81; 0.96; 1; 1"/>
+    </circle>
    </svg>
   </div>
 
   <div class="method-controls rv">
    <div class="method-tabs" role="group">
-    <button class="method-tab" type="button" data-stage="1" aria-pressed="true">1 · Write once</button>
-    <button class="method-tab" type="button" data-stage="2" aria-pressed="false">2 · Retrieve once</button>
-    <button class="method-tab" type="button" data-stage="3" aria-pressed="false">3 · Decode and reuse</button>
+    <button class="method-tab" type="button" data-stage="1" aria-pressed="true">Memory Write</button>
+    <button class="method-tab" type="button" data-stage="2" aria-pressed="false">Memory Read</button>
    </div>
    <button class="method-tab" type="button" id="methodPlay" aria-pressed="true">Pause</button>
   </div>
-  <p class="method-caption rv" id="methodCaption">History is encoded into one compact persistent bank as it arrives. Earlier segments are never encoded again.</p>
-
+ 
   <div class="steps">
-   <div class="step rv"><span class="k">01 / Write</span><h4>Compress Each Segment</h4><p>Trailing 1/r (e.g., 64 tokens) final-layer states are stored once into the bank G<sub>t</sub>, cutting persistent cache by L × r.</p></div>
-   <div class="step rv"><span class="k">02 / Index</span><h4>Single-Shot Retrieval</h4><p>A learned 1024-d projection routes incoming queries to the top-K relevant states only once across all layers.</p></div>
-   <div class="step rv"><span class="k">03 / Read</span><h4>On-Demand KV Decoding</h4><p>Active states are decoded into layer-specific KV caches for full-attention layers; the frozen backbone generates answers without forgetting.</p></div>
+   <div class="step rv">
+     <span class="k">01 / Write</span>
+     <h4>Cache Memory Only Once</h4>
+     <p>Retains only a small trailing subset of final-layer hidden states in a single global memory bank, eliminating multi-layer token caches.</p>
+   </div>
+   <div class="step rv">
+     <span class="k">02 / Index</span>
+     <h4>Retrieve Memory Only Once</h4>
+     <p>Selects the most relevant memory states only once for each continual input and reuses them across all attention layers and decoding steps.</p>
+   </div>
+   <div class="step rv">
+     <span class="k">03 / Read</span>
+     <h4>Decode KV Caches on Demand</h4>
+     <p>Dynamically projects the retrieved memory states into layer-specific KV caches on demand while keeping the backbone frozen.</p>
+   </div>
   </div>
 
-  <!-- Store less, remember more Features -->
+<!-- Core Highlights -->
   <div class="section-heading rv" style="margin-top:20px; margin-bottom:28px;">
-   <span class="eyebrow">Core Advantages</span>
+   <span class="eyebrow">Key Highlights</span>
    <h2 class="section-title">Store less, remember more</h2>
   </div>
   <div class="features-grid">
    <article class="feature-card c-blue rv">
     <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h7"/><circle cx="19" cy="15" r="3"/></svg></span>
-    <h3>Write Once</h3>
-    <p>Every historical segment is compressed only once into final-layer representations. Later turns never re-encode it.</p>
+    <h3>Scalable Architecture</h3>
+    <p>Caches and retrieves memory <b>only once</b>, simultaneously achieving accurate recall, linear-time complexity, and a constant GPU memory budget.</p>
    </article>
    <article class="feature-card c-violet rv">
-    <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 4 4"/></svg></span>
-    <h3>Retrieve Once</h3>
-    <p>A single top-K search per query routes all attention layers and decoding steps, eliminating repeated layer-wise lookup.</p>
+    <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></span>
+    <h3>Foundation Performance</h3>
+    <p>Consistently outperforms Transformer, linear GDN, and YOCO across model sizes via <b>64× depth–time cache compression</b>.</p>
    </article>
    <article class="feature-card c-teal rv">
-    <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 17V9m5 8V5m5 12v-6m5 6V7"/></svg></span>
-    <h3>Constant Cache</h3>
-    <p>Active GPU cache remains strictly bounded at 25 MB up to 1M context — 1313× smaller than standard full-context KV caches.</p>
+    <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="m9 12 2 2 4-4"/></svg></span>
+    <h3>Native Memory</h3>
+    <p>The <b>first native memory model</b> to surpass full-context baselines up to 1M tokens, beating M+ and Metis without catastrophic forgetting.</p>
    </article>
    <article class="feature-card c-sand rv">
-    <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v18M5 8l7-5 7 5v8l-7 5-7-5Z"/></svg></span>
-    <h3>No Forgetting</h3>
-    <p>The backbone stays frozen during generation while history is internalized as decoded KV caches, preserving 100% general reasoning.</p>
+    <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
+    <h3>Inference Scalability</h3>
+    <p>At 1M context, slashes active GPU cache by <b>1,313×</b> (25 MB), accelerates prefill by <b>6.9×</b>, and boosts throughput by <b>3.5×</b>.</p>
    </article>
   </div>
 
@@ -378,10 +717,16 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:34px 0}
    <p class="section-subtitle">Rigorous verification across pre-trained foundation models and native long-context memory adaptation.</p>
   </div>
 
-  <!-- 表 1：基座预训练对比 -->
+  <!-- Table 1: Foundation Architectures Pre-trained from Scratch -->
   <div class="table-card rv">
     <h3>Table 1: Foundation Architectures Pre-trained from Scratch (FineWeb-Edu)</h3>
     <p class="desc">Evaluating language modeling perplexity (PPL ↓) and zero-shot reasoning accuracy (Avg. ↑) across eight benchmarks at ~400M scale.</p>
+    <div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line);">
+      <img src="assets/training_curves.png" alt="Training and scaling curves of MemOnce across compression ratios and model sizes" style="width: 90%; margin: 0 auto; border-radius: 6px; cursor: zoom-in;" data-zoom>
+      <p style="margin: 10px 0 0; text-align: center; font-size: 0.85rem; color: var(--muted);">
+        <b>Training &amp; Scaling Dynamics:</b> Validation perplexity vs. training tokens (r = 1, 2, 4, 8) and model scales (0.15B to 1.0B).
+      </p>
+    </div>
     <div class="table-wrap">
       <table class="data-table">
         <thead>
@@ -428,7 +773,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:34px 0}
     </div>
   </div>
 
-  <!-- 表 2：原生长文本记忆对比 -->
+  <!-- Table 2: Native Long-Context Memory Performance -->
   <div class="table-card rv">
     <h3>Table 2: Long-Context Memory Performance across 4K to 1M Contexts</h3>
     <p class="desc">Evaluating response accuracy (%) across 5 memory benchmarks. MemOnce is the first native memory model to surpass full-context baselines.</p>
@@ -447,6 +792,10 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:34px 0}
           </tr>
         </thead>
         <tbody>
+          <tr>
+            <td class="align-left">Qwen3.5-2B (Full Context Baseline)</td>
+            <td>2B</td><td>72.69</td><td>64.35</td><td>41.00</td><td>45.00</td><td>23.60</td><td>49.33</td>
+          </tr>
           <tr>
             <td class="align-left">Qwen3.5-4B (Full Context Baseline)</td>
             <td>4B</td><td>82.64</td><td>69.55</td><td>42.20</td><td>43.50</td><td>33.60</td><td>54.30</td>
@@ -480,7 +829,7 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:34px 0}
     </div>
   </div>
 
-  <!-- What the numbers say: 核心洞见 -->
+  <!-- What the numbers say: Key Insights -->
   <div class="section-heading rv" style="margin-top:40px; margin-bottom:24px;">
    <span class="eyebrow">Analysis</span>
    <h2 class="section-title">What the numbers say</h2>
@@ -488,19 +837,11 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:34px 0}
   <div class="findings">
    <article class="finding rv">
     <h4>First Native Memory to Surpass Full Context</h4>
-    <p>MemOnce scores <b>60.07% vs. 54.30%</b> for full context on average, beating prior memory models by <b>+18.68% (M+) and +32.27% (Metis)</b>. Query-aware sparse retrieval effectively mitigates attention dilution over long contexts.</p>
+    <p>MemOnce achieves <b>60.07% vs. 54.30%</b> for full context on average across five benchmarks, outperforming M+ by <b>+18.68%</b> and Metis by <b>+32.27%</b> without catastrophic forgetting on general tasks.</p>
    </article>
    <article class="finding rv">
-    <h4>Near-Lossless 64× Depth–Time Cache Compression</h4>
-    <p>Combining layer elimination and 8× temporal compression (<b>L × r = 64×</b>) incurs less than <b>0.3%</b> downstream accuracy loss (52.63% → 52.35%), proving trailing states faithfully encapsulate segment semantics.</p>
-   </article>
-   <article class="finding rv">
-    <h4>Frozen Backbone Completely Prevents Forgetting</h4>
-    <p>On MMLU/GSM8K/GPQA, MemOnce retains a <b>65.98%</b> general reasoning average (vs 65.88% baseline), whereas full-model SFT drops to <b>38.40%</b>, and soft-prompt/linear states drop by 18–23%.</p>
-   </article>
-   <article class="finding rv">
-    <h4>Curing Linear RNN Perplexity Collapse</h4>
-    <p>Unlike pure linear models (GDN/Kimi-Linear) that suffer severe PPL degradation on WikiText (26.03+ vs 19.28) due to bounded state capacity, MemOnce preserves full attention recall via on-demand KV decoding.</p>
+    <h4>Near-Lossless 64× Depth–Time Compression</h4>
+    <p>Combining layer elimination and 8× temporal pooling (<b>L × r = 64×</b>) incurs less than <b>0.3%</b> accuracy loss (52.63% → 52.35%), while consistently outperforming Transformer, GDN, and YOCO across 150M–1B scales.</p>
    </article>
   </div>
 
@@ -594,33 +935,46 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:34px 0}
   var method=document.getElementById('methodVisual');
   var caption=document.getElementById('methodCaption');
   var methodPlay=document.getElementById('methodPlay');
-  var methodStage=1, methodTimer=null;
+  var methodStage='cycle';
   var methodCopy={
-    1:'History is encoded into one compact persistent bank as it arrives. Earlier segments are never encoded again.',
-    2:'Each new query runs one top-K search over the bank. The selected indices are shared across every attention layer.',
-    3:'Selected states are decoded into layer-specific KV caches once for this query, then reused by all attention blocks and decoding steps.'
+    'cycle':'Trailing states from history tokens x₁ ... x_{t-1} are first cached once into compact memory bank G_t (Memory Write / Cache Once); then current query token x_t performs single-shot Top-K retrieval and online KV decoding (Memory Read / Retrieve & Online Decode).',
+    '1':'Phase 1 · Memory Write (Cache Once): Trailing states h_{1...t-1}^L from history tokens x₁ ... x_{t-1} are compressed and cached once into segment memory bank G_t (1/r compression, k = ⌊N/r⌋). History segments are never re-encoded in later turns.',
+    '2':'Phase 2 · Memory Read (Retrieve Once & Online Decode): Active query token x_t performs single-shot Top-K retrieval Top-K Sim(φ(h_t^L), φ(m_i)), followed by online decoding via K_Proj^l and V_Proj^l directly into layer-specific KV caches for Memory Sparse Attention.',
+    'all':'All Simultaneous: Continuous full pipeline showing concurrent input pass, memory bank writing, top-K retrieval, and online KV cache decoding across all attention layers.'
   };
+  var svgEl = document.getElementById('methodSvg');
   function setMethodStage(stage){
     methodStage=stage;
     method.dataset.stage=stage;
-    caption.textContent=methodCopy[stage];
+    if(caption) caption.textContent=methodCopy[stage] || methodCopy['cycle'];
+    caption.textContent=methodCopy[stage] || methodCopy['cycle'];
     document.querySelectorAll('.method-tab[data-stage]').forEach(function(tab){
-      tab.setAttribute('aria-pressed',String(Number(tab.dataset.stage)===stage));
+      tab.setAttribute('aria-pressed',String(tab.dataset.stage===String(stage)));
     });
   }
-  function stopMethod(){clearInterval(methodTimer);methodTimer=null;}
-  function startMethod(){stopMethod();if(methodPlay.getAttribute('aria-pressed')==='true'&&!matchMedia('(prefers-reduced-motion: reduce)').matches)methodTimer=setInterval(function(){setMethodStage(methodStage%3+1);},3200);}
   document.querySelectorAll('.method-tab[data-stage]').forEach(function(tab){
-    tab.addEventListener('click',function(){setMethodStage(Number(tab.dataset.stage));startMethod();});
+    tab.addEventListener('click',function(){
+      if(methodStage===tab.dataset.stage){
+        setMethodStage('cycle');
+      } else {
+        setMethodStage(tab.dataset.stage);
+      }
+    });
   });
+  var isPlaying = true;
   methodPlay.addEventListener('click',function(){
-    var playing=methodPlay.getAttribute('aria-pressed')==='true';
-    methodPlay.setAttribute('aria-pressed',String(!playing));
-    methodPlay.textContent=playing?'Play':'Pause';
-    startMethod();
+    isPlaying = !isPlaying;
+    methodPlay.setAttribute('aria-pressed',String(isPlaying));
+    methodPlay.textContent=isPlaying?'Pause':'Play';
+    if(!isPlaying){
+      method.classList.add('is-paused');
+      if(svgEl&&svgEl.pauseAnimations)svgEl.pauseAnimations();
+    } else {
+      method.classList.remove('is-paused');
+      if(svgEl&&svgEl.unpauseAnimations)svgEl.unpauseAnimations();
+    }
   });
-  if(matchMedia('(prefers-reduced-motion: reduce)').matches){methodPlay.setAttribute('aria-pressed','false');methodPlay.textContent='Play';}
-  else startMethod();
+  setMethodStage('cycle');
 
   var items=document.querySelectorAll('.rv');
   if(!('IntersectionObserver' in window)){items.forEach(function(el){el.classList.add('in');});return;}
@@ -634,3 +988,4 @@ footer{background:var(--paper);border-top:1px solid var(--line);padding:34px 0}
 </script>
 </body>
 </html>
+
