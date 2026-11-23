@@ -262,7 +262,7 @@ torchrun --standalone --nproc_per_node=8 train.py \
 <summary><b>📊 Long-Context Benchmarks</b></summary>
 <br>
 
-Supported benchmarks via `--bench`: `membench`, `locomo`, `longmemeval`, `personamem128`, `personamem1m`, and `msa`.
+Supported benchmarks via `--bench`: `membench`, `locomo`, `longmemeval`, `personamem128`, `personamem1m`, and `HotpotQA`.
 
 ```bash
 cd test/post-training
@@ -272,7 +272,7 @@ python bench.py --help  # View all benchmark arguments
 python bench.py --bench membench --data-dir DIR \
     --base-model "$BASE" --checkpoint "$CKPT" --out membench.json
 
-# LLM-as-a-Judge evaluation (required for locomo, longmemeval, msa)
+# LLM-as-a-Judge evaluation (required for locomo, longmemeval, HotpotQA)
 python bench.py --bench longmemeval --data-dir DIR \
     --base-model "$BASE" --checkpoint "$CKPT" \
     --judge-url http://JUDGE/v1 --judge-model NAME \
