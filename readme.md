@@ -6,7 +6,7 @@
 
 <p>
   <a href="https://clare-nie.github.io/MemOnce/"><img src="https://img.shields.io/badge/Website-1B42E0?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Website"></a>
-  <a href="https://arxiv.org/abs/XXXX.XXXXX"><img src="https://img.shields.io/badge/Paper-B31B1B?style=for-the-badge&logo=arxiv&logoColor=white" alt="Paper"></a>
+  <a href="https://arxiv.org/html/2611.27973"><img src="https://img.shields.io/badge/Paper-B31B1B?style=for-the-badge&logo=arxiv&logoColor=white" alt="Paper"></a>
   <a href="https://huggingface.co/ClareNie/MemOnce"><img src="https://img.shields.io/badge/HuggingFace-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black" alt="HuggingFace"></a>
 </p>
 
